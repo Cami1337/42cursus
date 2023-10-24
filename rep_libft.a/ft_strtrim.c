@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 16:10:13 by lglauch           #+#    #+#             */
-/*   Updated: 2023/10/20 16:42:19 by lglauch          ###   ########.fr       */
+/*   Updated: 2023/10/23 17:57:18 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,30 +18,24 @@ char	*ft_strtrim(char const *s1, char const *set)
 	int		send;
 	char	*ptr;
 	int		newlen;
+	int		i;
 
 	sstart = 0;
 	send = ft_strlen(s1) - 1;
 	ptr = (char *)s1;
 	if (!s1)
 		return (0);
-	if (s1 == set)
-	{
-		if (s1[sstart] == ' ' || s1[sstart] == '\t' || s1[sstart] == '\n')
-			sstart++;
-		if ((size_t)sstart == ft_strlen(s1))
-			return (ft_strdup(""));
-		if (sstart > 0)
-		{
-			ptr[0] = ptr[sstart];
-		}
-		if (s1[send] == ' ' || s1[send] == '\t' || s1[send] == '\n')
-			send--;
-	}
+	while (s1[sstart] != 0 && ft_strchr(set, s1[sstart]) != 0)
+		sstart++;
+	while (send >= sstart && ft_strchr(set, s1[send]) != 0)
+		send--;
 	newlen = send - sstart + 1;
-	ptr = (char *)malloc(newlen);
-	if (!ptr)
+	ptr = (char *)malloc(newlen + 1);
+	if (ptr == 0)
 		return (0);
-	ft_strlcpy(ptr, s1 + sstart, newlen);
+	i = -1;
+	while (++i <= newlen)
+		ptr[i] = s1[sstart + i];
 	ptr[newlen] = '\0';
 	return (ptr);
 }
