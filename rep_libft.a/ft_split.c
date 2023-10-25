@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 17:58:03 by lglauch           #+#    #+#             */
-/*   Updated: 2023/10/24 13:59:31 by lglauch          ###   ########.fr       */
+/*   Updated: 2023/10/25 12:37:50 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,4 @@ char	**ft_split(char const *s, char c)
 	}
 	new[count + 1] = NULL;
 	return (new);
-}
-
-#include <stdio.h>
-int main(void)
-{
-	prinft("")
 }
