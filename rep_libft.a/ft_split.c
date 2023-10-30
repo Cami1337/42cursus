@@ -6,51 +6,58 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 17:58:03 by lglauch           #+#    #+#             */
-/*   Updated: 2023/10/25 12:37:50 by lglauch          ###   ########.fr       */
+/*   Updated: 2023/10/30 17:16:17 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	**ft_split(char const *s, char c)
+static	int	ft_count_substr(char const *s, char c)
 {
 	int		i;
 	int		count;
-	char	**new;
-	int		substart;
 
 	i = 0;
 	count = 0;
-	substart = 0;
-	if (!s)
-		return (0);
-	if (!c)
-		return ((char **)s);
 	while (s[i] != 0)
 	{
-		if (s[i] == c)
+		while (s[i] == c)
+			i++;
+		if (s[i] != 0)
 			count++;
-		i++;
+		while (s[i] != c && s[i] != 0)
+			i++;
 	}
-	new = (char **)malloc(((count + 2) * sizeof(char *)));
-	if (!new)
-		return (0);
-	i = 0;
-	count = 0;
-	while (s[i] != 0)
-	{
-		if (s[i] == c)
-		{
-			new[count] = (char *)malloc(i - substart + 1);
-			if (!new[count])
-				return (0);
-			ft_strlcpy(new[count], s + substart, i - substart);
-			new[count][i - substart] = '\0';
-			substart = i + 1;
-			count++;
-		}
-		i++;
-	}
-	new[count + 1] = NULL;
-	return (new);
+	return (count);
 }
+
+static	char	*copy_substrings(const char *s, int start, int end)
+{
+	int		len;
+	char	*substr;
+	int		i;
+
+	len = end - start;
+	i = 0;
+	substr = malloc((len + 2) * sizeof(char *));
+	if (!substr)
+	{
+		free(substr);
+		return (0);
+	}
+	while (i <= len)
+	{
+		substr[i] = s[start + i];
+		i++;
+	}
+	substr[len] = '\0';
+	return (substr);
+}
+
+char	**ft_split(char const *s, char c)
+{
+	char	**strings;
+
+	return (strings);
+}
+
