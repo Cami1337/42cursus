@@ -1,63 +1,93 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ft_substrings.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 17:58:03 by lglauch           #+#    #+#             */
-/*   Updated: 2023/10/30 17:16:17 by lglauch          ###   ########.fr       */
+/*   Updated: 2023/10/31 15:02:22 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	int	ft_count_substr(char const *s, char c)
+static int	ft_count_substr(char const *s, char c)
 {
-	int		i;
-	int		count;
-
-	i = 0;
+    int	count;
+	
 	count = 0;
-	while (s[i] != 0)
-	{
-		while (s[i] == c)
-			i++;
-		if (s[i] != 0)
-			count++;
-		while (s[i] != c && s[i] != 0)
-			i++;
-	}
-	return (count);
+    while (*s)
+    {
+        if (*s != c)
+        {
+            count++;
+            while (*s && *s != c)
+                s++;
+        }
+        else
+            s++;
+    }
+    return (count);
 }
 
-static	char	*copy_substrings(const char *s, int start, int end)
+static char	*ft_strndup(const char *s1, size_t n)
 {
-	int		len;
-	char	*substr;
-	int		i;
+    char *copy;
+	
+	copy = (char *)malloc(n + 1);
+    if (!copy)
+        return (NULL);
+    ft_memcpy(copy, s1, n);
+    copy[n] = '\0';
+    return (copy);
+}
 
-	len = end - start;
-	i = 0;
-	substr = malloc((len + 2) * sizeof(char *));
-	if (!substr)
-	{
-		free(substr);
-		return (0);
-	}
-	while (i <= len)
-	{
-		substr[i] = s[start + i];
-		i++;
-	}
-	substr[len] = '\0';
-	return (substr);
+void	ft_free_substrings(char **substrings)
+{
+    if (!substrings)
+        return;
+    while (*substrings)
+        free(*substrings++);
+    free(substrings);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	char	**strings;
+    int 		count;
+	int			i;
+	char		**substrings;
+	const char	*start;
+	
+	start = s;
+	count = ft_count_substr(s, c);
+	i = 0;
+    if (!s || count == 0)
+        return (NULL);
+	substrings = (char **)malloc(sizeof(char *) * (count + 1));
+    if (!substrings)
+        return (NULL);
+    while (*s)
+    {
+        if (*s != c)
+        {
+            while (*s && *s != c)
+                s++;
 
-	return (strings);
+            substrings[i] = ft_strndup(start, s - start);
+            if (!substrings[i])
+            {
+                while (i > 0)
+                    free(substrings[--i]);
+                free(substrings);
+                return (NULL);
+            }
+            i++;
+        }
+        else
+            s++;
+    }
+
+    substrings[i] = NULL;
+    return (substrings);
 }
-
