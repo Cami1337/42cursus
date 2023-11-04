@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:06:57 by lglauch           #+#    #+#             */
-/*   Updated: 2023/10/25 15:52:00 by lglauch          ###   ########.fr       */
+/*   Updated: 2023/11/02 12:54:40 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*ft_itoa(int n)
 	}
 	str = malloc((sizeof(char) * digits + 1));
 	if (!str)
-		return (ft_strdup(""));
+		return (NULL);
 	int_to_string(n, digits, str);
 	return (str);
 }
