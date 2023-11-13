@@ -6,68 +6,67 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:33:36 by lglauch           #+#    #+#             */
-/*   Updated: 2023/11/09 17:53:47 by lglauch          ###   ########.fr       */
+/*   Updated: 2023/11/13 17:20:19 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_check_format(const char *conversion, va_list args)
+void	ft_check_format(const char *conversion, va_list args, int *i)
 {
-	int		i;
-	int		count;
+	int		m;
 
-	i = 0;
-	count = 0;
-	if (conversion[i] == 'c')
-		count += ft_putchar(va_arg(args, int));
-	else if (conversion[i] == 's')
-		count += ft_putstr(va_arg(args, char *));
-	else if (conversion[i] == 'p')
-		count += ft_putpointer(va_arg(args, void *));
-	else if (conversion[i] == 'd')
-		count += ft_putnbr(va_arg(args, int));
-	else if (conversion[i] == 'i')
-		count += ft_putnbr(va_arg(args, int));
-	else if (conversion[i] == 'u')
-		count += ft_putnbr_unsigned(va_arg(args, unsigned int));
-	else if (conversion[i] == 'x')
-		count += ft_puthexa(va_arg(args, unsigned int));
-	else if (conversion[i] == 'X')
-		count += ft_puthexa_upper(va_arg(args, unsigned int));
-	return (count);
+	m = 0;
+	if (conversion[m] == 'c')
+		ft_putchar(va_arg(args, int), i);
+	else if (conversion[m] == 's')
+		ft_putstr(va_arg(args, char *), i);
+	else if (conversion[m] == 'p')
+		ft_putpointer(va_arg(args, void *), i);
+	else if (conversion[m] == 'd')
+		ft_putnbr(va_arg(args, int), i);
+	else if (conversion[m] == 'i')
+		ft_putnbr(va_arg(args, int), i);
+	else if (conversion[m] == 'u')
+		ft_putnbr_unsigned(va_arg(args, unsigned int), i);
+	else if (conversion[m] == 'x')
+		ft_puthexa(va_arg(args, unsigned int), i);
+	else if (conversion[m] == 'X')
+		ft_puthexa_upper(va_arg(args, unsigned int), i);
 }
 
 int	ft_printf(const char *format, ...)
 {
 	va_list	args;
-	int		count;
+	int		i;
 
+	i = 0;
 	va_start(args, format);
-	count = 0;
 	while (*format)
 	{
 		if (*format == '%')
 		{
 			format++;
 			if (*format == '%')
-			{
-				count += ft_putchar(*format);
-				format++;
-			}
+				ft_putchar(*format++, &i);
 			else
-				count += ft_check_format(format++, args);
+				ft_check_format(format++, args, &i);
 		}
 		else
-			count += write(1, format++, 1);
+			ft_check_write(format++, &i);
+		if (i == -1)
+		{
+			va_end(args);
+			return (-1);
+		}
 	}
 	va_end(args);
-	return (count);
+	return (i);
 }
 // #include <stdio.h>
 // int main (void)
 // {
 // 	char str[20] = "54sdfdsf";
-// 	printf("%u\n", -200);
-// 	ft_printf("%u\n", -200);
+// 	printf("%u\n", -10);
+// 	ft_printf("%u", -10);
 // }

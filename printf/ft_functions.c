@@ -6,88 +6,85 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 16:11:14 by lglauch           #+#    #+#             */
-/*   Updated: 2023/11/09 17:25:31 by lglauch          ###   ########.fr       */
+/*   Updated: 2023/11/13 17:39:46 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_putchar(char c)
+void	ft_putchar(char c, int *i)
 {
 	if (write(1, &c, 1) == -1)
-		return (-1);
-	return (1);
+		*i = -1;
+	else
+		(*i)++;
 }
 
-int	ft_putstr(char *s)
+void	ft_putstr(char *s, int *i)
 {
-	int	count;
+	char	*str;
 
-	count = 0;
-	if (!s)
+	str = s;
+	if (!str)
+		str = "(null)";
+	while (*str)
 	{
-		if (write(1, "(null)", 6) == -1)
-			return (-1);
-		return (6);
+		ft_putchar(*str++, i);
+		if (*i == -1)
+			return ;
 	}
-	while (*s)
-	{
-		ft_putchar(*s);
-		count++;
-		s++;
-	}
-	return (count);
 }
 
-int	ft_putnbr(int n)
+int	ft_putnbr(int n, int *i)
 {
-	int	count;
-
-	count = 0;
 	if (n == -2147483648)
 	{
 		if (write(1, "-2147483648", 11) == -1)
-			return (-1);
-		return (11);
+			return (*i = -1);
+		return (*i += 11);
 	}
 	if (n < 0)
 	{
 		if (write (1, "-", 1) == -1)
-			return (-1);
+			return (*i = -1);
 		n = -n;
-		count++;
+		*i += 1;
 	}
 	if (n >= 10)
 	{
-		count += ft_putnbr(n / 10);
+		if (ft_putnbr(n / 10, i) == -1)
+			return (*i = -1);
 	}
-	ft_putchar(n % 10 + '0');
-	return (count + 1);
+	ft_putchar(n % 10 + '0', i);
+	return (*i);
 }
 
-int	ft_putpointer(void *s)
+void	ft_putpointer(void *s, int *i)
 {
 	uintptr_t	address;
-	int			count;
 
 	address = (uintptr_t) s;
-	count = write (1, "0x", 2);
-	if (count == -1)
-		return (-1);
-	return (ft_puthexa(address) + count);
+	if (write (1, "0x", 2) == -1)
+		*i = -1;
+	else
+		*i += 2;
+	if (*i != -1)
+		ft_puthexa(address, i);
 }
 
-int	ft_puthexa(uintptr_t n)
+int	ft_puthexa(uintptr_t n, int *i)
 {
 	char	*hexa;
-	int		count;
 
-	count = 0;
 	hexa = "0123456789abcdef";
 	if (n >= 16)
 	{
-		count += ft_puthexa(n / 16);
+		ft_puthexa(n / 16, i);
+		if (*i == -1)
+			return (*i = -1);
 	}
-	ft_putchar(hexa[n % 16]);
-	return (count + 1);
+	ft_putchar(hexa[n % 16], i);
+	if (*i == -1)
+		return (*i = -1);
+	return (*i + 1);
 }
