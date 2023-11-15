@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:33:36 by lglauch           #+#    #+#             */
-/*   Updated: 2023/11/13 17:20:19 by lglauch          ###   ########.fr       */
+/*   Updated: 2023/11/15 12:30:34 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,6 @@ int	ft_printf(const char *format, ...)
 // int main (void)
 // {
 // 	char str[20] = "54sdfdsf";
-// 	printf("%u\n", -10);
-// 	ft_printf("%u", -10);
+// 	printf("%x\n", -10);
+// 	ft_printf("%x", -10);
 // }
