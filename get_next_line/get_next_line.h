@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 16:34:08 by lglauch           #+#    #+#             */
-/*   Updated: 2023/11/30 12:53:40 by lglauch          ###   ########.fr       */
+/*   Updated: 2023/12/11 13:43:25 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,5 @@ t_list	*find_lastnode(t_list *list);
 void	str_cpy(t_list *list, char *next_line);
 int		get_strlen(t_list *list);
 void	dealloc(t_list **list, t_list *cleannode, char *buffer);
-char	*get_theline(t_list *list);
 
 #endif

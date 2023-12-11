@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 16:33:26 by lglauch           #+#    #+#             */
-/*   Updated: 2023/11/30 15:32:40 by lglauch          ###   ########.fr       */
+/*   Updated: 2023/12/11 16:42:42 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int	get_strlen(t_list *list)
 	return (len);
 }
 
+
 void	dealloc(t_list **list, t_list *cleannode, char *buffer)
 {
 	t_list	*tmp;
@@ -108,12 +109,11 @@ void	dealloc(t_list **list, t_list *cleannode, char *buffer)
 		free(*list);
 		*list = tmp;
 	}
-	*list = NULL;
 	if (cleannode->str_buffer[0])
 		*list = cleannode;
 	else
 	{
-		free(buffer);
 		free(cleannode);
+		free(buffer);
 	}
 }
