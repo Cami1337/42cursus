@@ -2,7 +2,7 @@ NAME = push_swap.a
 
 CFLAGS = -c -Werror -Wall -Wextra
 
-SRCS = errors.c helper.c push_swap.c
+SRCS = errors.c helper.c push_swap.c operations/push.c operations/rotate.c operations/swap.c operations/reverse_rotate.c
 
 OBJ = $(SRCS:.c=.o)
 
@@ -11,10 +11,10 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	cc -o $(NAME) $(OBJ) libft/libft.a printf/libftprintf.a
 
-$(OBJ): $(SRCS)
+%.o: %.c
 	@make -C libft
 	@make -C printf
-	cc $(CFLAGS) $(SRCS)
+	cc $(CFLAGS) -o $@ $<
 
 clean:
 	@make -C libft clean

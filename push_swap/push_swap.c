@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:02:55 by lglauch           #+#    #+#             */
-/*   Updated: 2024/01/09 16:35:20 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/01/15 15:35:25 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ int	main(int argc, char **argv)
 	i = 0;
 	if (argc < 2)
 		return (0);
-	check_digits(argc, argv);
-	check_duplicates(argc, argv);
+	check_args(argc, argv, &stack_a);
 	free_stack(stack_a);
 	free_stack(stack_b);
 	return (0);
