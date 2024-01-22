@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 18:23:47 by lglauch           #+#    #+#             */
-/*   Updated: 2024/01/09 16:47:58 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/01/19 14:39:29 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,3 +59,32 @@ int	ft_strcmp(const char *s1, const char *s2)
 	}
 	return (0);
 }
+
+void	free_stack(t_stack *stack)
+{
+	t_stack	*tmp;
+
+	while (stack != NULL)
+	{
+		tmp = stack;
+		stack = stack->next;
+		free(tmp);
+	}
+}
+
+int	find_max(t_stack **stack)
+{
+	t_stack	*current;
+	int		max;
+
+	current = *stack;
+	max = current->content;
+	while (current != NULL)
+	{
+		if (current->content > max)
+			max = current->content;
+		current = current->next;
+	}
+	return (max);
+}
+

@@ -1,8 +1,8 @@
-NAME = push_swap.a
+NAME = push_swap
 
 CFLAGS = -c -Werror -Wall -Wextra
 
-SRCS = errors.c helper.c push_swap.c operations/push.c operations/rotate.c operations/swap.c operations/reverse_rotate.c
+SRCS = errors.c helper.c push_swap.c sorting.c operations/push.c operations/rotate.c operations/swap.c operations/reverse_rotate.c
 
 OBJ = $(SRCS:.c=.o)
 

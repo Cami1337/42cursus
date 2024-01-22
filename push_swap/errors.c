@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:31:56 by lglauch           #+#    #+#             */
-/*   Updated: 2024/01/15 16:32:08 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/01/19 13:22:42 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,27 +19,41 @@ int	check_digit(char *number)
 	i = 0;
 	while (number[i])
 	{
-		if (ft_isdigit(number[i]) == 0)
+		if (number[i] == '-')
+		{
+			i++;
+			if (ft_isdigit(number[i]) == 0 || number[i] == '\0')
+			{
+				return (0);
+			}
+		}
+		else if (ft_isdigit(number[i]) == 0)
+		{
 			return (0);
+		}
 		i++;
 	}
-	printf("correct digit\n");
 	return (1);
 }
 
-int	check_duplicates(char **str, int index)
+int	check_duplicates(t_stack **stack)
 {
-	int	i;
+	t_stack	*current;
+	t_stack	*checker;
 
-	i = 0;
-	while (i < index)
+	current = *stack;
+	while (current != NULL)
 	{
-        if (ft_strcmp(str[i], str[index]) == 0)
-            return (0);
-        i++;
-    }
-	printf("correct duplicates\n");
-    return (1);
+		checker = current->next;
+		while (checker != NULL)
+		{
+			if (current->content == checker->content)
+				return (0);
+			checker = checker->next;
+		}
+		current = current->next;
+	}
+	return (1);
 }
 
 int	check_size(char *number)
@@ -75,34 +89,24 @@ void	check_args(int argc, char **argv, t_stack **stack)
 	char	**split_args;
 
 	x = 1;
-	while (argc > x)
+	while (argc > x++)
 	{
-		split_args = ft_split(argv[x], ' ');
+		split_args = ft_split(argv[x - 1], ' ');
 		i = 0;
 		while (split_args[i] != NULL)
 		{
-			if (!check_digit(split_args[i])
-				|| !check_duplicates(split_args, i)
-				|| !check_size(split_args[i]))
+			if (!check_digit(split_args[i]) || !check_size(split_args[i]))
 			{
-				printf("Error\n");
+				ft_printf("Error\n");
 				exit(1);
 			}
 			stack_push(stack, ft_atoi(split_args[i]));
 			i++;
 		}
-		x++;
 	}
-}
-
-void	free_stack(t_stack *stack)
-{
-	t_stack	*tmp;
-
-	while (stack != NULL)
+	if (!check_duplicates(stack))
 	{
-		tmp = stack;
-		stack = stack->next;
-		free(tmp);
+		ft_printf("Error\n");
+		exit(1);
 	}
 }
