@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: intra <intra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:31:56 by lglauch           #+#    #+#             */
-/*   Updated: 2024/01/19 13:22:42 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/01/22 15:59:29 by intra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,33 +80,4 @@ void	stack_push(t_stack **stack, int content)
 	if (new == NULL)
 		return ;
 	lstadd_back(stack, new);
-}
-
-void	check_args(int argc, char **argv, t_stack **stack)
-{
-	int		x;
-	int		i;
-	char	**split_args;
-
-	x = 1;
-	while (argc > x++)
-	{
-		split_args = ft_split(argv[x - 1], ' ');
-		i = 0;
-		while (split_args[i] != NULL)
-		{
-			if (!check_digit(split_args[i]) || !check_size(split_args[i]))
-			{
-				ft_printf("Error\n");
-				exit(1);
-			}
-			stack_push(stack, ft_atoi(split_args[i]));
-			i++;
-		}
-	}
-	if (!check_duplicates(stack))
-	{
-		ft_printf("Error\n");
-		exit(1);
-	}
 }
