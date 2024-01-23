@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: intra <intra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:56:47 by intra             #+#    #+#             */
-/*   Updated: 2024/01/22 16:00:04 by intra            ###   ########.fr       */
+/*   Updated: 2024/01/23 13:29:48 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	split_args_number(char **split_args, t_stack **stack)
 	int	arg_count;
 
 	i = 0;
+	arg_count = 0;
 	while (split_args[i] != NULL)
 	{
 		if (!check_digit(split_args[i]) || !check_size(split_args[i]))
@@ -39,6 +40,7 @@ int	check_args(int argc, char **argv, t_stack **stack)
 	int		arg_count;
 
 	x = 1;
+	arg_count = 0;
 	while (argc > x)
 	{
 		split_args = ft_split(argv[x], ' ');

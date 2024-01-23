@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: intra <intra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:02:55 by lglauch           #+#    #+#             */
-/*   Updated: 2024/01/22 15:41:48 by intra            ###   ########.fr       */
+/*   Updated: 2024/01/23 15:58:34 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,10 @@ int	main(int argc, char **argv)
 	while (arg_count == 3 && !is_sorted(&stack_a))
 	{
 		ft_threeargs(&stack_a);
+	}
+	while (!is_sorted(&stack_a))
+	{
+		sort_alg(&stack_a, &stack_b);
 	}
 	print_stack(stack_a);
 	free_stack(stack_a);

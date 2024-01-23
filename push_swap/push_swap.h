@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: intra <intra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:34:57 by lglauch           #+#    #+#             */
-/*   Updated: 2024/01/22 15:59:16 by intra            ###   ########.fr       */
+/*   Updated: 2024/01/23 14:22:34 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ typedef struct s_stack
 	struct s_stack	*next;
 }					t_stack;
 
+void	sort_alg(t_stack **stack_a, t_stack **stack_b);
+int		is_empty(t_stack *stack);
+
 int		check_duplicates(t_stack **stack);
 int		check_digit(char *number);
 int		check_size(char *number);
@@ -43,6 +46,7 @@ t_stack	*lstnew(int content);
 void	swap(t_stack **stack);
 void	sa(t_stack **stack_a);
 void	sb(t_stack **stack_a);
+void	pa(t_stack **stack_a, t_stack **stack_b);
 void	pb(t_stack **stack_a, t_stack **stack_b);
 void	rotate(t_stack **stack);
 void	ra(t_stack **stack_a);
