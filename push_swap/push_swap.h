@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:34:57 by lglauch           #+#    #+#             */
-/*   Updated: 2024/01/23 14:22:34 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/01/24 17:14:08 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	stack_push(t_stack **stack, int content);
 int		check_args(int argc, char **argv, t_stack **stack);
 int		split_args_number(char **split_args, t_stack **stack);
 void	ft_threeargs(t_stack **stack);
+void	ft_fiveargs(t_stack **stack_a, t_stack **stack_b);
 void	free_stack(t_stack *stack);
 int		find_max(t_stack **stack);
 int		ft_strcmp(const char *s1, const char *s2);
@@ -58,5 +59,7 @@ void	rrb(t_stack **stack_b);
 void	rrr(t_stack **stack_a, t_stack **stack_b);
 
 int		is_sorted(t_stack **stack);
+int		get_min(t_stack **stack);
+void	rotate_until_min(t_stack **stack, int min_index, int size);
 
 #endif
