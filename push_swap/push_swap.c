@@ -6,26 +6,26 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:02:55 by lglauch           #+#    #+#             */
-/*   Updated: 2024/01/24 14:51:44 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/01/26 14:31:55 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void print_stack(t_stack *stack_a)
+void	print_stack(t_stack *stack_a)
 {
-    t_stack *temp = stack_a;
+	t_stack	*temp;
 
-    while (temp != NULL)
-    {
-        printf("%d ", temp->content);
-        temp = temp->next;
-    }
-
-    printf("\n");
+	temp = stack_a;
+	while (temp != NULL)
+	{
+		printf("%d ", temp->content);
+		temp = temp->next;
+	}
+	printf("\n");
 }
 
-int	main(int argc, char **argv)
+t_stack	*push_swap(int argc, char **argv)
 {
 	t_stack	*stack_a;
 	t_stack	*stack_b;
@@ -46,12 +46,17 @@ int	main(int argc, char **argv)
 	{
 		ft_fiveargs(&stack_a, &stack_b);
 	}
-	while (!is_sorted(&stack_a))
-	{
-		sort_alg(&stack_a, &stack_b);
-	}
+	sorting_big(&stack_a, &stack_b);
 	print_stack(stack_a);
 	free_stack(stack_a);
 	free_stack(stack_b);
+	return (stack_a);
+}
+
+int	main(int argc, char **argv)
+{
+	t_stack	*stack_a;
+
+	stack_a = push_swap(argc, argv);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 12:29:31 by lglauch           #+#    #+#             */
-/*   Updated: 2024/01/24 17:14:26 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/01/26 15:00:46 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ void	ft_fiveargs(t_stack **stack_a, t_stack **stack_b)
 {
 	int	min_index;
 
-	min_index = get_min(stack_a);
+	min_index = get_min_index(stack_a);
 	rotate_until_min(stack_a, min_index, 5);
 	pb (stack_a, stack_b);
-	min_index = get_min(stack_a);
+	min_index = get_min_index(stack_a);
 	rotate_until_min(stack_a, min_index, 4);
 	pb (stack_a, stack_b);
 	while (!is_sorted(stack_a))
@@ -73,7 +73,7 @@ void	ft_fiveargs(t_stack **stack_a, t_stack **stack_b)
 	pa(stack_b, stack_a);
 }
 
-int	get_min(t_stack **stack)
+int	get_min_index(t_stack **stack)
 {
 	t_stack	*current;
 	int		min_value;

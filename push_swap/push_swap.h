@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:34:57 by lglauch           #+#    #+#             */
-/*   Updated: 2024/01/24 17:14:08 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/01/26 15:03:24 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,9 @@ void	rrb(t_stack **stack_b);
 void	rrr(t_stack **stack_a, t_stack **stack_b);
 
 int		is_sorted(t_stack **stack);
+int		get_min_index(t_stack **stack);
 int		get_min(t_stack **stack);
 void	rotate_until_min(t_stack **stack, int min_index, int size);
+void	sorting_big(t_stack **stack_a, t_stack **stack_b);
 
 #endif

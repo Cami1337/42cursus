@@ -2,7 +2,7 @@ NAME = push_swap
 
 CFLAGS = -c -Werror -Wall -Wextra
 
-SRCS = algorithm.c errors.c check_input.c helper.c push_swap.c sorting.c operations/push.c operations/rotate.c operations/swap.c operations/reverse_rotate.c
+SRCS = errors.c check_input.c helper.c push_swap.c sorting.c sorting_big.c operations/push.c operations/rotate.c operations/swap.c operations/reverse_rotate.c
 
 OBJ = $(SRCS:.c=.o)
 
