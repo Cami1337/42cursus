@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:02:55 by lglauch           #+#    #+#             */
-/*   Updated: 2024/01/26 14:31:55 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/01/29 16:01:48 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_stack	*push_swap(int argc, char **argv)
 {
 	t_stack	*stack_a;
 	t_stack	*stack_b;
+	t_stack	*stack_k;
 	int		arg_count;
 
 	stack_a = NULL;
@@ -46,8 +47,9 @@ t_stack	*push_swap(int argc, char **argv)
 	{
 		ft_fiveargs(&stack_a, &stack_b);
 	}
-	sorting_big(&stack_a, &stack_b);
-	print_stack(stack_a);
+	make_stack_k (&stack_a, &stack_k);//add algo
+	bubble_sort(&stack_k);
+	print_stack(stack_k); //remove later
 	free_stack(stack_a);
 	free_stack(stack_b);
 	return (stack_a);
