@@ -6,14 +6,13 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:34:57 by lglauch           #+#    #+#             */
-/*   Updated: 2024/01/29 17:01:55 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/02/01 15:44:27 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include "printf/ft_printf.h"
 # include "libft/libft.h"
 
 # include <unistd.h>
@@ -23,7 +22,6 @@
 typedef struct s_stack
 {
 	int				content;
-	struct s_stack	*previous;
 	struct s_stack	*next;
 }					t_stack;
 
@@ -60,11 +58,15 @@ void	rrr(t_stack **stack_a, t_stack **stack_b);
 
 int		is_sorted(t_stack **stack);
 int		get_min_index(t_stack **stack);
-int		get_min(t_stack **stack);
+int		get_max(t_stack **stack);
 void	rotate_until_min(t_stack **stack, int min_index, int size);
 void	sorting_big(t_stack **stack_a, t_stack **stack_b);
 void	make_stack_k(t_stack **stack_a, t_stack **stack_k);
 void	bubble_sort(t_stack **stack_k);
 int		size_stack(t_stack **stack);
+int		get_index_max(t_stack **stack);
+void	sort_all(t_stack **stack_a, t_stack **stack_b, t_stack **stack_k);
+void	sort_blocks(t_stack **stack_a, t_stack **stack_b, \
+t_stack **stack_k, int size);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:00:49 by lglauch           #+#    #+#             */
-/*   Updated: 2024/01/29 17:32:45 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/02/01 15:23:42 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,32 @@ t_stack	*get_block_index(t_stack **stack, int index)
 	return (current);
 }
 
+int	has_smaller_number(t_stack **stack, int index)
+{
+	t_stack	*current;
+
+	if (!stack)
+		return (0);
+	current = *stack;
+	while (current)
+	{
+		if (current->content <= index)
+			return (1);
+		current = current->next;
+	}
+	return (0);
+}
+
 void	sort_blocks(t_stack **stack_a, t_stack **stack_b,
 					t_stack **stack_k, int size)
 {
 	t_stack	*current;
 	int		count;
 
-	count = 0;
 	current = get_block_index(stack_k, size);
-	while (*stack_a && count < size)
+	count = 0;
+	while (*stack_a && current && has_smaller_number(stack_a, current->content)
+		&& count < size)
 	{
 		if ((*stack_a)->content <= current->content)
 		{
@@ -91,23 +108,3 @@ void	sort_blocks(t_stack **stack_a, t_stack **stack_b,
 		}
 	}
 }
-
-void	sort_all(t_stack **stack_a, t_stack **stack_b, t_stack **stack_k)
-{
-	int		size;
-	int		num;
-
-	make_stack_k(stack_a, stack_k);
-	bubble_sort(stack_k);
-	size = size_stack(stack_a);
-	while (*stack_a)
-	{
-		num += size;
-		if (size <= 100)
-			sort_blocks(stack_a, stack_b, stack_k, num / 4);
-		else
-			sort_blocks(stack_a, stack_b, stack_k, num / 8);
-	}
-	//sort stack b und push to stack a
-}
-

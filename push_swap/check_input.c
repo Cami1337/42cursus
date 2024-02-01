@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:56:47 by intra             #+#    #+#             */
-/*   Updated: 2024/01/23 13:29:48 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/02/01 15:35:08 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	split_args_number(char **split_args, t_stack **stack)
 	{
 		if (!check_digit(split_args[i]) || !check_size(split_args[i]))
 		{
-			ft_printf("Error\n");
+			write(2, "Error\n", 6);
 			exit(1);
 		}
 		stack_push(stack, ft_atoi(split_args[i]));
@@ -49,9 +49,8 @@ int	check_args(int argc, char **argv, t_stack **stack)
 	}
 	if (!check_duplicates(stack))
 	{
-		ft_printf("Error\n");
+		write(2, "Error\n", 6);
 		exit(1);
 	}
-	ft_printf("Args: %d\n", arg_count);
 	return (arg_count);
 }

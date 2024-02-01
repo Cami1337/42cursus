@@ -6,22 +6,22 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 13:46:32 by lglauch           #+#    #+#             */
-/*   Updated: 2024/01/29 17:01:38 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/01/30 13:39:44 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	get_index(t_stack **stack)
+int	get_index_max(t_stack **stack)
 {
 	t_stack	*current;
 	int		index;
-	int		min;
+	int		max;
 
-	min = get_min(stack);
+	max = get_max(stack);
 	current = *stack;
 	index = 0;
-	while (current && current->content != min)
+	while (current && current->content != max)
 	{
 		current = current->next;
 		index++;
@@ -44,23 +44,23 @@ int	size_stack(t_stack **stack)
 	return (size);
 }
 
-int	get_min(t_stack **stack)
+int	get_max(t_stack **stack)
 {
 	t_stack	*current;
-	int		min_value;
+	int		max_value;
 	int		i;
 
 	current = *stack;
-	min_value = current->content;
+	max_value = current->content;
 	i = 0;
 	while (current)
 	{
-		if (current->content < min_value)
+		if (current->content > max_value)
 		{
-			min_value = current->content;
+			max_value = current->content;
 		}
 		current = current->next;
 		i++;
 	}
-	return (min_value);
+	return (max_value);
 }

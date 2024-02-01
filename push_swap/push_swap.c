@@ -6,23 +6,67 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:02:55 by lglauch           #+#    #+#             */
-/*   Updated: 2024/01/29 16:01:48 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/02/01 15:22:00 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	print_stack(t_stack *stack_a)
+void	push_back(t_stack **stack_a, t_stack **stack_b)
 {
-	t_stack	*temp;
+	int	index;
+	int	size;
+	int	max;
 
-	temp = stack_a;
-	while (temp != NULL)
+	while (*stack_b)
 	{
-		printf("%d ", temp->content);
-		temp = temp->next;
+		size = size_stack(stack_b);
+		max = get_max(stack_b);
+		index = get_index_max(stack_b);
+		if (index < size / 2)
+		{
+			while ((*stack_b)->content != max)
+			{
+				rb(stack_b);
+			}
+		}
+		else
+		{
+			while ((*stack_b)->content != max)
+			{
+				rrb(stack_b);
+			}
+		}
+		pa(stack_b, stack_a);
 	}
-	printf("\n");
+}
+
+void	sort_all(t_stack **stack_a, t_stack **stack_b, t_stack **stack_k)
+{
+	int		size;
+	int		prev_size;
+	int		now_size;
+	int		num;
+
+	prev_size = 0;
+	now_size = 1;
+	num = 0;
+	make_stack_k(stack_a, stack_k);
+	bubble_sort(stack_k);
+	size = size_stack(stack_a);
+	while (*stack_a && prev_size != now_size)
+	{
+		num += size;
+		prev_size = size_stack(stack_a);
+		if (size <= 100)
+			sort_blocks(stack_a, stack_b, stack_k, num / 4);
+		else
+			sort_blocks(stack_a, stack_b, stack_k, num / 8);
+		now_size = size_stack(stack_a);
+	}
+	while (*stack_a)
+		pb(stack_a, stack_b);
+	push_back(stack_a, stack_b);
 }
 
 t_stack	*push_swap(int argc, char **argv)
@@ -40,25 +84,19 @@ t_stack	*push_swap(int argc, char **argv)
 	if (is_sorted(&stack_a) == 1)
 		return (0);
 	while (arg_count == 3 && !is_sorted(&stack_a))
-	{
 		ft_threeargs(&stack_a);
-	}
 	while (arg_count == 5 && !is_sorted(&stack_a))
-	{
 		ft_fiveargs(&stack_a, &stack_b);
-	}
-	make_stack_k (&stack_a, &stack_k);//add algo
-	bubble_sort(&stack_k);
-	print_stack(stack_k); //remove later
+	while (arg_count > 5 && !is_sorted(&stack_a))
+		sort_all(&stack_a, &stack_b, &stack_k);
 	free_stack(stack_a);
 	free_stack(stack_b);
+	free_stack(stack_k);
 	return (stack_a);
 }
 
 int	main(int argc, char **argv)
 {
-	t_stack	*stack_a;
-
-	stack_a = push_swap(argc, argv);
+	push_swap(argc, argv);
 	return (0);
 }
