@@ -34,6 +34,6 @@ clean:
 	rm -f $(OBJ) $(BONUS_OBJ)
 
 fclean: clean
-	rm -f $(NAME) $(BONUS)
+	rm -f $(NAME) $(BONUS_OBJ)
 
 re: fclean all

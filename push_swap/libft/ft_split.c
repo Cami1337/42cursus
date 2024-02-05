@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 13:11:42 by lglauch           #+#    #+#             */
-/*   Updated: 2023/11/06 11:02:49 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/02/05 15:55:50 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static	char	*ft_strcpy(const char *s, int n)
 	return (copy);
 }
 
-static	void	*ft_free_substrings(char **strs)
+void	*ft_free_substrings(char **strs)
 {
 	int	i;
 

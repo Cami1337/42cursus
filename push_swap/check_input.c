@@ -6,10 +6,11 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 15:56:47 by intra             #+#    #+#             */
-/*   Updated: 2024/02/01 15:35:08 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/02/05 15:56:26 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft/libft.h"
 #include "push_swap.h"
 
 int	split_args_number(char **split_args, t_stack **stack)
@@ -45,6 +46,7 @@ int	check_args(int argc, char **argv, t_stack **stack)
 	{
 		split_args = ft_split(argv[x], ' ');
 		arg_count += split_args_number(split_args, stack);
+		ft_free_substrings(split_args);
 		x++;
 	}
 	if (!check_duplicates(stack))
