@@ -3,14 +3,18 @@ CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast
 LIBMLX	:= ./MLX42
 
 HEADERS	:= -I ./include -I $(LIBMLX)/include
-LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
-SRCS	:= fractol.c
+LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm libft/libft.a printf/libftprintf.a
+SRCS	:= fractol.c build_fractol.c
 OBJS	:= ${SRCS:.c=.o}
 
-all: libmlx $(NAME)
+all: clone libmlx $(NAME)
 
-libmlx:
-	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+clone:
+	@git clone https://github.com/codam-coding-college/MLX42.git || true
+
+libmlx: clone
+	@cd $(LIBMLX) && cmake -B build && cmake --build build -j4
+
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
@@ -33,7 +37,6 @@ fclean: clean
 
 re: clean all
 
-.PHONY: all, clean, fclean, re, libmlx
 
 
 

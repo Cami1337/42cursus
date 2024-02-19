@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 14:17:26 by lglauch           #+#    #+#             */
-/*   Updated: 2024/02/15 14:07:29 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/02/19 16:54:57 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,27 @@
 # include "libft/libft.h"
 # include "printf/ft_printf.h"
 
-/* Main MLX handle, carries important data in regards to the program.
- * @param window The window itself.
- * @param context Abstracted opengl data.
- * @param width The width of the window.
- * @param height The height of the window.
- * @param delta_time The time difference between the previous frame and the current frame.
- */
+# include <unistd.h>
+# include <stdlib.h>
+# include <math.h>
 
-typedef struct s_mlx
+typedef struct s_img
 {
-	void			*window;
-	void			*context;
-	int32_t			width;
-	int32_t			height;
-	double			delta_time;
-	mlx_texture_t	*texture;
-	mlx_image_t		*image;
-}	t_mlx;
+	void	*img;
+	char	*pixel_ptr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}			t_img;
+
+typedef struct s_fractal
+{
+	void	*mlx_connection;
+	void	*mlx_window;
+	t_img	*img;
+}			t_fractal;
+
+//make fractal
+void	generate_fractol(int argc, char **argv, mlx_image_t *img);
 
 #endif
