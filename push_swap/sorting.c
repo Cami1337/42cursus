@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sorting.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: intra <intra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 12:29:31 by lglauch           #+#    #+#             */
-/*   Updated: 2024/01/26 15:00:46 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/02/19 11:16:11 by intra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,8 @@ int	get_min_index(t_stack **stack)
 void	rotate_until_min(t_stack **stack, int min_index, int size)
 {
 	int		i;
-	t_stack	*tmp;
 
 	i = 0;
-	tmp = *stack;
 	if (min_index <= 2)
 	{
 		while (i < min_index)
