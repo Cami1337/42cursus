@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 15:00:41 by lglauch           #+#    #+#             */
-/*   Updated: 2024/02/22 14:53:05 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/02/22 16:16:05 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,13 @@ void	fractal_init(t_fractal *fractal)
 	fractal->mlx_connection = mlx_init(WIDTH, HEIGHT, "Fract'ol", true);
 	if (!fractal->mlx_connection)
 		malloc_error();
-	fractal->mlx_window = mlx_new_image(fractal->mlx_connection, WIDTH, HEIGHT);
-	if (!fractal->mlx_window)
+	fractal->img = mlx_new_image(fractal->mlx_connection, WIDTH, HEIGHT);
+	if (!fractal->img)
 	{
 		mlx_close_window(fractal->mlx_connection);
 		free(fractal->mlx_connection);
 		malloc_error();
 	}
-	if (!fractal->img)
-	{
-		free(fractal->mlx_connection);
-		free(fractal->mlx_window);
-		malloc_error();
-	}
-	mlx_image_to_window(fractal->mlx_connection, fractal->mlx_window, 0, 0);
+	fractal_create(fractal);
+	mlx_image_to_window(fractal->mlx_connection, fractal->img, 0, 0);
 }

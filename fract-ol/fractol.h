@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 14:17:26 by lglauch           #+#    #+#             */
-/*   Updated: 2024/02/22 14:53:15 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/02/22 16:27:59 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,23 @@
 # include <stdlib.h>
 # include <math.h>
 
-typedef struct s_img
+typedef struct s_pixel
 {
-	void	*img_ptr;
-	char	*pixel_ptr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}			t_img;
+	int	x;
+	int	y;
+	int	colour;
+}		t_pixel;
 
 typedef struct s_fractal
 {
-	void	*mlx_connection;
-	void	*mlx_window;
-	t_img	*img;
+	void		*mlx_connection;
+	void		*mlx_window;
+	mlx_image_t	*img;
 }			t_fractal;
 
 void	fractal_init(t_fractal *fractal);
+void	fractal_create(t_fractal *fractal);
+t_pixel	make_pixel(int x, int y);
 
 //helper
 int		ft_compare_input(const char *s1, const char *s2, size_t n);
