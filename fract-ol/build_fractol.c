@@ -6,10 +6,11 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 15:00:41 by lglauch           #+#    #+#             */
-/*   Updated: 2024/02/19 17:08:12 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/02/22 14:53:05 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "MLX42/include/MLX42/MLX42.h"
 #include "fractol.h"
 
 // void	generate_fractol(int argc, char **argv, mlx_image_t *img)
@@ -34,6 +35,12 @@
 // {
 // }
 
+static void	malloc_error(void)
+{
+	ft_printf("Error: malloc failed\n");
+	exit(EXIT_FAILURE);
+}
+
 void	fractal_init(t_fractal *fractal)
 {
 	fractal->mlx_connection = mlx_init(WIDTH, HEIGHT, "Fract'ol", true);
@@ -42,8 +49,15 @@ void	fractal_init(t_fractal *fractal)
 	fractal->mlx_window = mlx_new_image(fractal->mlx_connection, WIDTH, HEIGHT);
 	if (!fractal->mlx_window)
 	{
+		mlx_close_window(fractal->mlx_connection);
 		free(fractal->mlx_connection);
 		malloc_error();
 	}
-	
+	if (!fractal->img)
+	{
+		free(fractal->mlx_connection);
+		free(fractal->mlx_window);
+		malloc_error();
+	}
+	mlx_image_to_window(fractal->mlx_connection, fractal->mlx_window, 0, 0);
 }

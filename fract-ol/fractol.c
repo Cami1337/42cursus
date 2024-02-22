@@ -6,11 +6,12 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:42:52 by lglauch           #+#    #+#             */
-/*   Updated: 2024/02/19 16:51:28 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/02/22 14:49:52 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+#include "MLX42/include/MLX42/MLX42.h"
 
 // Exit the program as failure.
 // static void	ft_error(void)
@@ -29,17 +30,19 @@
 int	main(int argc, char **argv)
 {
 	t_fractal	fractal;
-	
-	if ((argc == 2 && !ft_strncmp(argv[1], "mandelbrot", 10))
-		|| (argc == 4 && !ft_strncmp(argv[1], "julia", 5)))
+
+	if ((argc == 2 && !ft_compare_input(argv[1], "mandelbrot", 10))
+		|| (argc == 4 && !check_julia(argc, argv)))
 	{
 		fractal_init(&fractal);
-		fractal_render(&fractal);
+		// fractal_render(&fractal);
 		mlx_loop(fractal.mlx_connection);
+		mlx_terminate(fractal.mlx_connection);
 	}
 	else
 	{
-		ft_printf("\nInvalid Input\n\nUse: ./fractol [mandelbrot | julia <value> <value> | burning_ship]\n\n");
+		ft_printf("\nInvalid Input\n\nUse: ./fractol [mandelbrot |\
+					julia <value> <value> | burning_ship]\n\n");
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
