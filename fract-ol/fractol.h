@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 14:17:26 by lglauch           #+#    #+#             */
-/*   Updated: 2024/02/22 16:27:59 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/02/27 18:56:54 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,13 @@ typedef struct s_fractal
 	void		*mlx_connection;
 	void		*mlx_window;
 	mlx_image_t	*img;
+	double		zoom;
+	char		**argv;
 }			t_fractal;
 
-void	fractal_init(t_fractal *fractal);
-void	fractal_create(t_fractal *fractal);
+
+void	fractal_init(t_fractal *fractal, char **argv);
+void	fractal_create(t_fractal *fractal, char **argv);
 t_pixel	make_pixel(int x, int y);
 
 //helper
