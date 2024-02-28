@@ -6,7 +6,7 @@
 /*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 14:17:26 by lglauch           #+#    #+#             */
-/*   Updated: 2024/02/27 18:56:54 by leo              ###   ########.fr       */
+/*   Updated: 2024/02/28 12:55:43 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,12 @@ typedef struct s_fractal
 
 void	fractal_init(t_fractal *fractal, char **argv);
 void	fractal_create(t_fractal *fractal, char **argv);
-t_pixel	make_pixel(int x, int y);
+t_pixel	make_mandelbrot(int x, int y);
+t_pixel	make_julia(int x, int y);
 
 //helper
 int		ft_compare_input(const char *s1, const char *s2, size_t n);
 int		check_julia(int argc, char **argv);
+void 	my_scroll_func(double xdelta, double ydelta, void *param);
 
 #endif

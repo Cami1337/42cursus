@@ -6,7 +6,7 @@
 /*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 15:00:41 by lglauch           #+#    #+#             */
-/*   Updated: 2024/02/27 15:27:03 by leo              ###   ########.fr       */
+/*   Updated: 2024/02/28 12:55:40 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	fractal_init(t_fractal *fractal, char **argv)
 		free(fractal->mlx_connection);
 		malloc_error();
 	}
+	fractal->argv = argv;
 	fractal_create(fractal, argv);
 	mlx_image_to_window(fractal->mlx_connection, fractal->img, 0, 0);
 }

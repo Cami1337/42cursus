@@ -6,7 +6,7 @@
 /*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:36:24 by lglauch           #+#    #+#             */
-/*   Updated: 2024/02/27 15:31:04 by leo              ###   ########.fr       */
+/*   Updated: 2024/02/28 13:03:01 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,14 +104,3 @@ void	fractal_create(t_fractal *fractal, char **argv)
 		y++;
 	}
 }
-// t_pixel	make_pixel(int x, int y)
-// {
-// 	t_pixel	pixel;
-
-// 	pixel.x = 0;
-// 	pixel.y = 0;
-// 	//if pixel is mandelbrot set pixel colour to mandelbrot
-
-// 	//if pixel is not mandelbrot set pixel colour to black
-// 	return (pixel);
-// }
