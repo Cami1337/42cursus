@@ -3,35 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:42:52 by lglauch           #+#    #+#             */
-/*   Updated: 2024/02/28 13:08:51 by leo              ###   ########.fr       */
+/*   Updated: 2024/02/29 15:23:52 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void my_scroll_func(double xdelta, double ydelta, void *param)
+void	my_scroll_func(double xdelta, double ydelta, void *param)
 {
-    t_fractal *fractal;
+	t_fractal	*fractal;
 
-    fractal = (t_fractal *)param;
-    if (fractal == NULL || fractal->argv == NULL)
+	fractal = (t_fractal *)param;
+	if (fractal == NULL || fractal->argv == NULL)
 	{
 		printf("fractal or fractal->argv is NULL\n");
-        return;
+		return ;
 	}
-
-    printf("my_scroll_func called with xdelta: %f, ydelta: %f\n", xdelta, ydelta);
-
-    printf("zoom before: %f\n", fractal->zoom);
-    if (ydelta > 0 || xdelta > 0)
-        fractal->zoom *= 1.1;
-    else if (ydelta < 0 || xdelta < 0)
-        fractal->zoom /= 1.1;
-    printf("zoom after: %f\n", fractal->zoom);
-    fractal_create(fractal, fractal->argv);
+	if (ydelta > 0 || xdelta > 0)
+	{
+		fractal->zoom *= 1.025;
+		fractal->offset -= 10;
+	}
+	else if (ydelta < 0 || xdelta < 0)
+	{
+		fractal->zoom /= 1.025;
+		fractal->offset += 10;
+	}
+	printf("zoom after: %f\n", fractal->zoom);
+	printf("offset after: %d\n", fractal->offset);
+	ft_memset(fractal->img->pixels, 0, WIDTH * HEIGHT);
+	fractal_create(fractal, fractal->argv);
 	mlx_image_to_window(fractal->mlx_connection, fractal->img, 0, 0);
 }
 
@@ -43,6 +47,13 @@ int	main(int argc, char **argv)
 		|| (argc == 4 && !check_julia(argc, argv)))
 	{
 		fractal = malloc(sizeof(t_fractal));
+		if (fractal == NULL)
+		{
+			printf("malloc failed\n");
+			return (EXIT_FAILURE);
+		}
+		fractal->zoom = 1;
+		fractal->offset = 0;
 		fractal_init(fractal, argv);
 		mlx_scroll_hook(fractal->mlx_connection, my_scroll_func, fractal);
 		mlx_loop(fractal->mlx_connection);
@@ -57,5 +68,3 @@ int	main(int argc, char **argv)
 	}
 	return (EXIT_SUCCESS);
 }
-
-

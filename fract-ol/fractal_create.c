@@ -3,79 +3,61 @@
 /*                                                        :::      ::::::::   */
 /*   fractal_create.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:36:24 by lglauch           #+#    #+#             */
-/*   Updated: 2024/02/28 13:03:01 by leo              ###   ########.fr       */
+/*   Updated: 2024/02/29 16:44:08 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include <sys/types.h> //delete later ??????
 
-
-
 t_pixel	make_mandelbrot(int x, int y)
 {
-    t_pixel	pixel;
-    double c_re = (x - WIDTH / 2.0) * 4.0 / WIDTH - 0.5;
-    double c_im = (y - HEIGHT / 2.0) * 4.0 / HEIGHT + 0.3;
-    double z_re = 0, z_im = 0;
-    int iter = 0;
-	int MAX_ITER = 1000;
+	t_pixel	pixel;
+	int		iter;
+	int		r;
+	int		g;
+	int		b;
 
-    while (z_re * z_re + z_im * z_im <= 4 && iter < MAX_ITER)
-    {
-        double z_re_new = z_re * z_re - z_im * z_im + c_re;
-        z_im = 2 * z_re * z_im + c_im;
-        z_re = z_re_new;
-        iter++;
-    }
-    pixel.x = x;
-    pixel.y = y;
-    if (iter == MAX_ITER)
-    {
-        pixel.colour = iter; // Mandelbrot set, color black
-    }
-    else
-    {
-        int r = iter % 256;
-        int g = (iter * iter) % 256;
-        int b = (iter * iter * iter) % 256;
-
-        // Assuming pixel.colour is a 32-bit int with format 0xRRGGBB
-        pixel.colour = (r << 16) | (g << 8) | b;
-    }
-
-    return (pixel);
+	if (x % 2 != 0 && y % 2 != 0)
+		return ((t_pixel){x, y, 0});
+	iter = is_mandelbrot(x, y);
+	pixel.x = x;
+	pixel.y = y;
+	if (iter == MAX_ITER)
+	{
+		pixel.colour = iter;
+	}
+	else
+	{
+		r = iter % 256;
+		g = (iter * iter) % 256;
+		b = (iter * iter * iter) % 256;
+		pixel.colour = (r << 16) | (g << 8) | b;
+	}
+	return (pixel);
 }
 
-t_pixel	make_julia(int x, int y)
+t_pixel	make_julia(int x, int y, double c_re, double c_im)
 {
 	t_pixel	pixel;
-	double c_re = -0.7;
-	double c_im = 0.27015;
-	double z_re = (x - WIDTH / 2.0) * 4.0 / WIDTH;
-	double z_im = (y - HEIGHT / 2.0) * 4.0 / HEIGHT + 0.3;
-	int iter = 0;
-	int MAX_ITER = 1000;
+	int		iter;
+	int		r;
+	int		g;
+	int		b;
 
-	while (z_re * z_re + z_im * z_im <= 4 && iter < MAX_ITER)
-	{
-		double z_re_new = z_re * z_re - z_im * z_im + c_re;
-		z_im = 2 * z_re * z_im + c_im;
-		z_re = z_re_new;
-		iter++;
-	}
+	iter = is_julia(x, y, c_re, c_im);
 	pixel.x = x;
 	pixel.y = y;
 	if (iter == MAX_ITER)
 		pixel.colour = iter;
 	else
 	{
-		int r = iter % 256;
-		int g = (iter * iter) % 256;
-		int b = (iter * iter * iter) % 256;
+		r = iter % 256;
+		g = (iter * iter) % 256;
+		b = (iter * iter * iter) % 256;
 		pixel.colour = (r << 16) | (g << 8) | b;
 	}
 	return (pixel);
@@ -96,8 +78,12 @@ void	fractal_create(t_fractal *fractal, char **argv)
 			if (!ft_compare_input(argv[1], "mandelbrot", 10))
 				pixel = make_mandelbrot(x, y);
 			else if (!ft_compare_input(argv[1], "julia", 5))
-				pixel = make_julia(x, y);
-			mlx_put_pixel(fractal->img, pixel.x, pixel.y, pixel.colour);
+				pixel = make_julia(x, y, atof(argv[2]), atof(argv[3]));
+			if (pixel.x * fractal->zoom <= WIDTH && pixel.y * fractal->zoom <= HEIGHT)
+			{
+				mlx_put_pixel(fractal->img, pixel.x * fractal->zoom,
+					pixel.y * fractal->zoom, pixel.colour);
+			}
 			x++;
 		}
 		x = 0;

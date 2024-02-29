@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_fractol.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 15:00:41 by lglauch           #+#    #+#             */
-/*   Updated: 2024/02/28 12:55:40 by leo              ###   ########.fr       */
+/*   Updated: 2024/02/29 15:25:10 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	malloc_error(void)
 
 void	fractal_init(t_fractal *fractal, char **argv)
 {
-	fractal->mlx_connection = mlx_init(WIDTH, HEIGHT, "Fract'ol", true);
+	fractal->mlx_connection = mlx_init(WIDTH, HEIGHT, "Fract'ol", false);
 	if (!fractal->mlx_connection)
 		malloc_error();
 	fractal->img = mlx_new_image(fractal->mlx_connection, WIDTH, HEIGHT);
