@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractal_create.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:36:24 by lglauch           #+#    #+#             */
-/*   Updated: 2024/02/29 16:44:08 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/03/01 12:16:45 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,10 @@ void	fractal_create(t_fractal *fractal, char **argv)
 				pixel = make_mandelbrot(x, y);
 			else if (!ft_compare_input(argv[1], "julia", 5))
 				pixel = make_julia(x, y, atof(argv[2]), atof(argv[3]));
-			if (pixel.x * fractal->zoom <= WIDTH && pixel.y * fractal->zoom <= HEIGHT)
+			if (x * fractal->zoom <= WIDTH && y * fractal->zoom <= HEIGHT)
 			{
-				mlx_put_pixel(fractal->img, pixel.x * fractal->zoom,
-					pixel.y * fractal->zoom, pixel.colour);
+				mlx_put_pixel(fractal->img, x * fractal->zoom,
+					y * fractal->zoom, pixel.colour);
 			}
 			x++;
 		}
