@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:32:34 by lglauch           #+#    #+#             */
-/*   Updated: 2024/02/29 16:59:31 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/03/04 12:28:32 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,18 @@ int	check_julia(int argc, char **argv)
 	int		i;
 	int		j;
 
-	i = 0;
 	j = 2;
 	if (argc == 4 && !ft_compare_input(argv[1], "julia", 5))
 	{
 		while (j < 4)
 		{
+			i = 0;
 			while (argv[j][i] != '\0')
 			{
 				if (argv[j][i] == '-' || argv[j][i] == ','
 					|| argv[j][i] == '+' || argv[j][i] == '.')
 					i++;
-				if (ft_isdigit(argv[j][i]) == 0)
+				if (argv[j][i] != 0 && ft_isdigit(argv[j][i]) == 0)
 					return (1);
 				i++;
 			}

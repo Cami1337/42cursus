@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:42:52 by lglauch           #+#    #+#             */
-/*   Updated: 2024/03/01 13:42:05 by leo              ###   ########.fr       */
+/*   Updated: 2024/03/04 15:59:08 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,18 @@ void	close_func(mlx_key_data_t key_data, void *param)
 		free(fractal);
 		exit(EXIT_SUCCESS);
 	}
+	else if (key_data.key == MLX_KEY_W && fractal->offset_y > 24)
+		fractal->offset_y -= 25;
+	else if (key_data.key == MLX_KEY_A && fractal->offset_x > 24)
+		fractal->offset_x -= 25;
+	else if (key_data.key == MLX_KEY_S && fractal->offset_y < 350)
+		fractal->offset_y += 25;
+	else if (key_data.key == MLX_KEY_D && fractal->offset_x < 300)
+		fractal->offset_x += 25;
+	printf("offset_x: %d, offset_y: %d\n", fractal->offset_x, fractal->offset_y);
+	clear_image(*fractal);
+	fractal_create(fractal, fractal->argv);
+	mlx_image_to_window(fractal->mlx_connection, fractal->img, 0, 0);
 }
 
 void	my_scroll_func(double xdelta, double ydelta, void *param)
@@ -34,17 +46,14 @@ void	my_scroll_func(double xdelta, double ydelta, void *param)
 		return ;
 	if (ydelta > 0 || xdelta > 0)
 	{
-		fractal->zoom *= 1.025;
-		fractal->offset -= 10;
+		fractal->zoom *= 1.1;
 	}
 	else if (ydelta < 0 || xdelta < 0)
 	{
-		fractal->zoom /= 1.025;
-		fractal->offset += 10;
+		fractal->zoom /= 1.1;
 	}
 	printf("zoom after: %f\n", fractal->zoom);
-	printf("offset after: %d\n", fractal->offset);
-	ft_memset(fractal->img->pixels, 0, WIDTH * HEIGHT);
+	clear_image(*fractal);
 	fractal_create(fractal, fractal->argv);
 	mlx_image_to_window(fractal->mlx_connection, fractal->img, 0, 0);
 }
@@ -60,7 +69,8 @@ int	main(int argc, char **argv)
 		if (fractal == NULL)
 			return (EXIT_FAILURE);
 		fractal->zoom = 1;
-		fractal->offset = 0;
+		fractal->offset_y = 0;
+		fractal->offset_x = 0;
 		fractal_init(fractal, argv);
 		mlx_scroll_hook(fractal->mlx_connection, my_scroll_func, fractal);
 		mlx_key_hook(fractal->mlx_connection, close_func, fractal);
