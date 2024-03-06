@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 14:17:26 by lglauch           #+#    #+#             */
-/*   Updated: 2024/03/04 17:04:14 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/03/06 17:55:40 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,23 @@
 # include <stdlib.h>
 # include <math.h>
 
+
+typedef struct s_mandelbrot
+{
+	double	c_re;
+	double	c_im;
+	double	z_re;
+	double	z_im;
+	int		iter;
+}			t_mandelbrot;
+
+typedef struct s_julia
+{
+	double	z_re;
+	double	z_im;
+	int		iter;
+}			t_julia;
+
 typedef struct s_pixel
 {
 	int	x;
@@ -40,6 +57,11 @@ typedef struct s_fractal
 	double		zoom;
 	int			offset_x;
 	int			offset_y;
+	int			target_offset_x;
+	int			target_offset_y;
+	double		target_zoom;
+	double		mouse_x;
+	double		mouse_y;
 	char		**argv;
 }			t_fractal;
 

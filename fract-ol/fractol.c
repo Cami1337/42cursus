@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:42:52 by lglauch           #+#    #+#             */
-/*   Updated: 2024/03/04 15:59:08 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/03/06 18:01:11 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,16 @@ void	my_scroll_func(double xdelta, double ydelta, void *param)
 		return ;
 	if (ydelta > 0 || xdelta > 0)
 	{
-		fractal->zoom *= 1.1;
+		fractal->target_zoom *= 1.1;
+		fractal->target_offset_x = fractal->mouse_x;
+		fractal->target_offset_y = fractal->mouse_y;
 	}
 	else if (ydelta < 0 || xdelta < 0)
 	{
-		fractal->zoom /= 1.1;
+		fractal->target_zoom /= 1.1;
+		fractal->target_offset_x = fractal->mouse_x;
+		fractal->target_offset_y = fractal->mouse_y;
 	}
-	printf("zoom after: %f\n", fractal->zoom);
 	clear_image(*fractal);
 	fractal_create(fractal, fractal->argv);
 	mlx_image_to_window(fractal->mlx_connection, fractal->img, 0, 0);
@@ -71,6 +74,9 @@ int	main(int argc, char **argv)
 		fractal->zoom = 1;
 		fractal->offset_y = 0;
 		fractal->offset_x = 0;
+		fractal->target_zoom = 1;
+		fractal->target_offset_x = 0;
+		fractal->target_offset_y = 0;
 		fractal_init(fractal, argv);
 		mlx_scroll_hook(fractal->mlx_connection, my_scroll_func, fractal);
 		mlx_key_hook(fractal->mlx_connection, close_func, fractal);
