@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:36:24 by lglauch           #+#    #+#             */
-/*   Updated: 2024/03/04 17:05:22 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/03/11 18:00:37 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_pixel	make_mandelbrot(int x, int y, t_fractal *fractal)
 	return (pixel);
 }
 
-t_pixel	make_julia(int x, int y, double c_re, double c_im)
+t_pixel	make_julia(int x, int y, t_fractal *fractal)
 {
 	t_pixel	pixel;
 	int		iter;
@@ -45,7 +45,12 @@ t_pixel	make_julia(int x, int y, double c_re, double c_im)
 	int		g;
 	int		b;
 
-	iter = is_julia(x, y, c_re, c_im);
+	fractal->c_re_julia = fractal->mouse_x / 1000.0;
+	fractal->c_im_julia = fractal->mouse_y / 1000.0;
+	fractal->x_julia = (x + fractal->x_offset) * fractal->zoom;
+	fractal->y_julia = (y + fractal->y_offset) * fractal->zoom;
+	iter = is_julia(fractal->x_julia, fractal->y_julia,
+			fractal->c_re_julia, fractal->c_im_julia);
 	pixel.x = x;
 	pixel.y = y;
 	if (iter == MAX_ITER)
@@ -75,11 +80,11 @@ void	fractal_create(t_fractal *fractal, char **argv)
 			if (!ft_compare_input(argv[1], "mandelbrot", 10))
 				pixel = make_mandelbrot(x, y, fractal);
 			else if (!ft_compare_input(argv[1], "julia", 5))
-				pixel = make_julia(x, y, atof(argv[2]), atof(argv[3]));
-			if (x * fractal->zoom + fractal->offset_x <= WIDTH && y * fractal->zoom + fractal->offset_y <= HEIGHT)
+				pixel = make_julia(x, y, fractal);
+			if (x * fractal->zoom <= WIDTH && y * fractal->zoom <= HEIGHT)
 			{
-				mlx_put_pixel(fractal->img, pixel.x + fractal->offset_x,
-					pixel.y + fractal->offset_y, pixel.colour);
+				mlx_put_pixel(fractal->img, pixel.x * fractal->x_offset,
+							pixel.y * fractal->y_offset, pixel.colour);
 			}
 			x++;
 		}

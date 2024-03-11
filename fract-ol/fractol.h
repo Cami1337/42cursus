@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 14:17:26 by lglauch           #+#    #+#             */
-/*   Updated: 2024/03/04 17:04:14 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/03/11 17:54:22 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,23 +38,33 @@ typedef struct s_fractal
 	void		*mlx_window;
 	mlx_image_t	*img;
 	double		zoom;
-	int			offset_x;
-	int			offset_y;
 	char		**argv;
+	int			mouse_x;
+	int			mouse_y;
+	double		c_re_julia;
+	double		c_im_julia;
+	bool		checker;
+	double		x_offset;
+	double		y_offset;
+	double		x_julia;
+	double		y_julia;
 }			t_fractal;
 
 void	fractal_init(t_fractal *fractal, char **argv);
 void	fractal_create(t_fractal *fractal, char **argv);
 t_pixel	make_mandelbrot(int x, int y, t_fractal *fractal);
-t_pixel	make_julia(int x, int y, double c_re, double c_im);
+t_pixel	make_julia(int x, int y, t_fractal *fractal);
 int		is_mandelbrot(int x, int y, t_fractal fractal);
 int		is_julia(int x, int y, double c_re, double c_im);
 
 //helper
 int		ft_compare_input(const char *s1, const char *s2, size_t n);
 int		check_julia(int argc, char **argv);
-void	my_scroll_func(double xdelta, double ydelta, void *param);
-void	movement(mlx_key_data_t keydata, t_fractal *fractal);
 void	clear_image(t_fractal fractal);
+
+//hooks
+void	close_func(mlx_key_data_t key_data, void *param);
+void	my_scroll_func(double xdelta, double ydelta, void *param);
+void	get_cursor_position(void *param);
 
 #endif
