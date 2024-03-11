@@ -6,20 +6,11 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:25:23 by lglauch           #+#    #+#             */
-/*   Updated: 2024/03/11 15:38:06 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/03/11 18:25:47 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-typedef struct s_mandelbrot
-{
-	double	c_re;
-	double	c_im;
-	double	z_re;
-	double	z_im;
-	int		iter;
-}			t_mandelbrot;
 
 int	is_mandelbrot(int x, int y, t_fractal fractal)
 {
@@ -44,13 +35,6 @@ int	is_mandelbrot(int x, int y, t_fractal fractal)
 	}
 	return (iter);
 }
-
-typedef struct s_julia
-{
-	double	z_re;
-	double	z_im;
-	int		iter;
-}			t_julia;
 
 int	is_julia(int x, int y, double c_re, double c_im)
 {

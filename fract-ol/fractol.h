@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 14:17:26 by lglauch           #+#    #+#             */
-/*   Updated: 2024/03/11 17:54:22 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/03/11 18:25:05 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,23 @@
 # include <stdlib.h>
 # include <math.h>
 
+
+typedef struct s_mandelbrot
+{
+	double	c_re;
+	double	c_im;
+	double	z_re;
+	double	z_im;
+	int		iter;
+}			t_mandelbrot;
+
+typedef struct s_julia
+{
+	double	z_re;
+	double	z_im;
+	int		iter;
+}			t_julia;
+
 typedef struct s_pixel
 {
 	int	x;
@@ -38,6 +55,8 @@ typedef struct s_fractal
 	void		*mlx_window;
 	mlx_image_t	*img;
 	double		zoom;
+	int			offset_x;
+	int			offset_y;
 	char		**argv;
 	int			mouse_x;
 	int			mouse_y;
