@@ -6,35 +6,61 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:36:24 by lglauch           #+#    #+#             */
-/*   Updated: 2024/03/11 18:00:37 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/03/12 17:36:17 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
+// t_pixel	make_mandelbrot(int x, int y, t_fractal *fractal)
+// {
+// 	t_pixel	pixel;
+// 	int		iter;
+// 	int		r;
+// 	int		g;
+// 	int		b;
+
+// 	iter = is_mandelbrot(x, y, *fractal);
+// 	pixel.x = x;
+// 	pixel.y = y;
+// 	if (iter == MAX_ITER)
+// 	{
+// 		pixel.colour = iter;
+// 	}
+// 	else
+// 	{
+// 		r = (iter % 8) * 32;
+// 		g = (iter % 16) * 16;
+// 		b = (iter % 32) * 8;
+// 		pixel.colour = (r << 16) | (g << 8) | b;
+// 	}
+// 	return (pixel);
+// }
 t_pixel	make_mandelbrot(int x, int y, t_fractal *fractal)
 {
-	t_pixel	pixel;
-	int		iter;
-	int		r;
-	int		g;
-	int		b;
+    t_pixel	pixel;
+    int		iter;
+    int		r;
+    int		g;
+    int		b;
 
-	iter = is_mandelbrot(x, y, *fractal);
-	pixel.x = x;
-	pixel.y = y;
-	if (iter == MAX_ITER)
-	{
-		pixel.colour = iter;
-	}
-	else
-	{
-		r = (iter % 8) * 32;
-		g = (iter % 16) * 16;
-		b = (iter % 32) * 8;
-		pixel.colour = (r << 16) | (g << 8) | b;
-	}
-	return (pixel);
+    double real = fractal->start_x + ((double)x / WIDTH) * (fractal->end_x - fractal->start_x);
+    double imag = fractal->start_y + ((double)y / HEIGHT) * (fractal->end_y - fractal->start_y);
+    iter = is_mandelbrot(real, imag, *fractal);
+    pixel.x = x;
+    pixel.y = y;
+    if (iter == MAX_ITER)
+    {
+        pixel.colour = 0x000000; // Set to black
+    }
+    else
+    {
+        r = (iter % 8) * 32;
+        g = (iter % 16) * 16;
+        b = (iter % 32) * 8;
+        pixel.colour = (r << 16) | (g << 8) | b;
+    }
+    return (pixel);
 }
 
 t_pixel	make_julia(int x, int y, t_fractal *fractal)
@@ -47,8 +73,8 @@ t_pixel	make_julia(int x, int y, t_fractal *fractal)
 
 	fractal->c_re_julia = fractal->mouse_x / 1000.0;
 	fractal->c_im_julia = fractal->mouse_y / 1000.0;
-	fractal->x_julia = (x + fractal->x_offset) * fractal->zoom;
-	fractal->y_julia = (y + fractal->y_offset) * fractal->zoom;
+	fractal->x_julia = fractal->start_x + ((double)x / WIDTH) * (fractal->end_x - fractal->start_x);
+    fractal->y_julia = fractal->start_y + ((double)y / HEIGHT) * (fractal->end_y - fractal->start_y);
 	iter = is_julia(fractal->x_julia, fractal->y_julia,
 			fractal->c_re_julia, fractal->c_im_julia);
 	pixel.x = x;

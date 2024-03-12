@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 14:17:26 by lglauch           #+#    #+#             */
-/*   Updated: 2024/03/11 18:25:05 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/03/12 17:37:28 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,18 @@ typedef struct s_fractal
 	double		y_offset;
 	double		x_julia;
 	double		y_julia;
+	double		start_x;
+	double		end_x;
+	double		start_y;
+	double		end_y;
 }			t_fractal;
 
 void	fractal_init(t_fractal *fractal, char **argv);
 void	fractal_create(t_fractal *fractal, char **argv);
 t_pixel	make_mandelbrot(int x, int y, t_fractal *fractal);
 t_pixel	make_julia(int x, int y, t_fractal *fractal);
-int		is_mandelbrot(int x, int y, t_fractal fractal);
-int		is_julia(int x, int y, double c_re, double c_im);
+int		is_mandelbrot(double x, double y, t_fractal fractal);
+int		is_julia(double x, double y, double c_re, double c_im);
 
 //helper
 int		ft_compare_input(const char *s1, const char *s2, size_t n);

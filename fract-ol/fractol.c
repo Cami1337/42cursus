@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:42:52 by lglauch           #+#    #+#             */
-/*   Updated: 2024/03/11 18:29:32 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/03/12 16:46:10 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ int	main(int argc, char **argv)
 		fractal->mouse_y = 0;
 		fractal->x_offset = 1;
 		fractal->y_offset = 1;
+		fractal->start_x = -2;
+		fractal->end_x = 2;
+		fractal->start_y = -2;
+		fractal->end_y = 2;
 		fractal->checker = false;
 		fractal_init(fractal, argv);
 		mlx_scroll_hook(fractal->mlx_connection, my_scroll_func, fractal);
