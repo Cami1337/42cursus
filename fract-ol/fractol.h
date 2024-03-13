@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 14:17:26 by lglauch           #+#    #+#             */
-/*   Updated: 2024/03/12 17:37:28 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/03/13 16:31:48 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,26 +51,27 @@ typedef struct s_pixel
 
 typedef struct s_fractal
 {
-	void		*mlx_connection;
-	void		*mlx_window;
-	mlx_image_t	*img;
-	double		zoom;
-	int			offset_x;
-	int			offset_y;
-	char		**argv;
-	int			mouse_x;
-	int			mouse_y;
-	double		c_re_julia;
-	double		c_im_julia;
-	bool		checker;
-	double		x_offset;
-	double		y_offset;
-	double		x_julia;
-	double		y_julia;
-	double		start_x;
-	double		end_x;
-	double		start_y;
-	double		end_y;
+	void			*mlx_connection;
+	void			*mlx_window;
+	mlx_image_t		*img;
+	double			zoom;
+	int				offset_x;
+	int				offset_y;
+	char			**argv;
+	int				mouse_x;
+	int				mouse_y;
+	double			c_re_julia;
+	double			c_im_julia;
+	bool			checker;
+	double			x_offset;
+	double			y_offset;
+	double			x_julia;
+	double			y_julia;
+	double			start_x;
+	double			end_x;
+	double			start_y;
+	double			end_y;
+	mlx_key_data_t	key_data;
 }			t_fractal;
 
 void	fractal_init(t_fractal *fractal, char **argv);
@@ -84,6 +85,7 @@ int		is_julia(double x, double y, double c_re, double c_im);
 int		ft_compare_input(const char *s1, const char *s2, size_t n);
 int		check_julia(int argc, char **argv);
 void	clear_image(t_fractal fractal);
+int		colours(t_fractal *fractal, int iter, t_pixel pixel);
 
 //hooks
 void	close_func(mlx_key_data_t key_data, void *param);

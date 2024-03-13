@@ -4,7 +4,7 @@ LIBMLX	:= ./MLX42
 
 HEADERS	:= -I ./include -I $(LIBMLX)/include
 LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm libft/libft.a printf/libftprintf.a
-SRCS	:= fractol.c build_fractol.c helper.c fractal_create.c formula.c hooks.c
+SRCS	:= fractol.c build_fractol.c helper.c fractal_create.c formula.c hooks.c colours.c
 OBJS	:= ${SRCS:.c=.o}
 
 all: clone libmlx $(NAME)

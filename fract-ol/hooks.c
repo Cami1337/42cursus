@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:04:16 by lglauch           #+#    #+#             */
-/*   Updated: 2024/03/12 17:29:58 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/03/13 16:39:09 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	close_func(mlx_key_data_t key_data, void *param)
 		fractal->checker = true;
 	else
 		fractal->checker = false;
+	if (key_data.key == MLX_KEY_9)
+		fractal->key_data = key_data;
 }
 
 void	zoom(t_fractal *fractal, int x, int y, double zoom_factor)
@@ -61,12 +63,11 @@ void	my_scroll_func(double xdelta, double ydelta, void *param)
 		return ;
 	mlx_get_mouse_pos(fractal->mlx_connection,
 		&mouse_x, &mouse_y);
-	zoom_factor = 1.1;
-	if (ydelta < 0 && fractal->zoom < 1)
+	zoom_factor = 1.5;
+	if (ydelta < 0)
 		zoom(fractal, mouse_x, mouse_y, 1 / zoom_factor);
 	else if (ydelta > 0)
 		zoom(fractal, mouse_x, mouse_y, zoom_factor);
-	printf("zoom after: %f\n", zoom_factor);
 	clear_image(*fractal);
 	fractal_create(fractal, fractal->argv);
 	mlx_image_to_window(fractal->mlx_connection, fractal->img, 0, 0);

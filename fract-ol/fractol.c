@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:42:52 by lglauch           #+#    #+#             */
-/*   Updated: 2024/03/12 16:46:10 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/03/13 17:50:50 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ int	main(int argc, char **argv)
 	}
 	else
 	{
-		ft_printf("\nInvalid Input\n\nUse: ./fractol [mandelbrot |\
-					julia <value> <value> | burning_ship]\n\n");
+		ft_printf("\nInvalid Input\n\nUse: ./fractol [mandelbrot |"
+						"julia <value> <value> | burning_ship]\n\n");
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);

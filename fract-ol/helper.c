@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:32:34 by lglauch           #+#    #+#             */
-/*   Updated: 2024/03/04 12:28:32 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/03/13 15:10:43 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,23 @@ int	check_julia(int argc, char **argv)
 		return (0);
 	}
 	return (1);
+}
+
+void	clear_image(t_fractal fractal)
+{
+	u_int32_t	x;
+	u_int32_t	y;
+
+	x = 0;
+	y = 0;
+	while (y < HEIGHT)
+	{
+		while (x < WIDTH)
+		{
+			mlx_put_pixel(fractal.img, x, y, 0);
+			x++;
+		}
+		x = 0;
+		y++;
+	}
 }

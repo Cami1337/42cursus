@@ -6,42 +6,19 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:25:23 by lglauch           #+#    #+#             */
-/*   Updated: 2024/03/12 17:37:08 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/03/13 16:09:56 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-// int	is_mandelbrot(int x, int y, t_fractal fractal)
-// {
-// 	t_mandelbrot	mandelbrot;
-// 	int				iter;
-// 	double			tmp;
-
-// 	iter = 0;
-// 	mandelbrot.z_re = 0;
-// 	mandelbrot.z_im = 0;
-// 	mandelbrot.c_re = (x * fractal.zoom - WIDTH / 2.0) * 4.0 / WIDTH - 0.5;
-// 	mandelbrot.c_im = (y * fractal.zoom - HEIGHT / 2.0) * 4.0 / HEIGHT + 0.3;
-// 	while (mandelbrot.z_re * mandelbrot.z_re + mandelbrot.z_im * mandelbrot.z_im
-// 		<= 4 && iter < MAX_ITER)
-// 	{
-// 		tmp = mandelbrot.z_re * mandelbrot.z_re - mandelbrot.z_im
-// 			* mandelbrot.z_im + mandelbrot.c_re;
-// 		mandelbrot.z_im = 2 * mandelbrot.z_re * mandelbrot.z_im
-// 			+ mandelbrot.c_im;
-// 		mandelbrot.z_re = tmp;
-// 		iter++;
-// 	}
-// 	return (iter);
-// }
 int	is_mandelbrot(double x, double y, t_fractal fractal)
 {
-    t_mandelbrot	mandelbrot;
-    int				iter;
-    double			tmp;
+    t_mandelbrot    mandelbrot;
+    int             iter;
+    double          tmp;
 
-	(void)fractal;
+    (void)fractal;
     iter = 0;
     mandelbrot.z_re = 0;
     mandelbrot.z_im = 0;
