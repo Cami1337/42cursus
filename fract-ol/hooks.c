@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:04:16 by lglauch           #+#    #+#             */
-/*   Updated: 2024/03/13 16:39:09 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/03/14 15:58:44 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ void	close_func(mlx_key_data_t key_data, void *param)
 		exit(EXIT_SUCCESS);
 	}
 	if (key_data.key == MLX_KEY_SPACE && key_data.action == MLX_REPEAT)
+	{
 		fractal->checker = true;
+		fractal->params_set = true;
+	}
 	else
 		fractal->checker = false;
 	if (key_data.key == MLX_KEY_9)

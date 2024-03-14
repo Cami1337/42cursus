@@ -6,13 +6,11 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:32:34 by lglauch           #+#    #+#             */
-/*   Updated: 2024/03/13 15:10:43 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/03/14 15:53:25 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "MLX42/include/MLX42/MLX42.h"
 #include "fractol.h"
-#include <stdio.h> //delete this line laterrrrrr
 
 int	ft_compare_input(const char *s1, const char *s2, size_t n)
 {
@@ -82,5 +80,21 @@ void	clear_image(t_fractal fractal)
 		}
 		x = 0;
 		y++;
+	}
+}
+
+void	create_c_value(t_fractal *fractal, char **argv)
+{
+	if (fractal->params_set == false)
+	{
+		fractal->c_re_julia = atof(argv[2]);
+		fractal->c_im_julia = atof(argv[3]);
+		fractal->mouse_x = atof(argv[2]);
+		fractal->mouse_y = atof(argv[3]);
+	}
+	else
+	{
+		fractal->c_re_julia = fractal->mouse_x / 1000.0;
+		fractal->c_im_julia = fractal->mouse_y / 1000.0;
 	}
 }

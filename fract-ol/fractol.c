@@ -6,11 +6,26 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:42:52 by lglauch           #+#    #+#             */
-/*   Updated: 2024/03/13 17:50:50 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/03/14 16:16:18 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
+void	init_values(t_fractal *fractal)
+{
+	fractal->zoom = 1;
+	fractal->mouse_x = 0;
+	fractal->mouse_y = 0;
+	fractal->x_offset = 1;
+	fractal->y_offset = 1;
+	fractal->start_x = -2;
+	fractal->end_x = 2;
+	fractal->start_y = -2;
+	fractal->end_y = 2;
+	fractal->checker = false;
+	fractal->params_set = false;
+}
 
 int	main(int argc, char **argv)
 {
@@ -22,19 +37,10 @@ int	main(int argc, char **argv)
 		fractal = malloc(sizeof(t_fractal));
 		if (fractal == NULL)
 			return (EXIT_FAILURE);
-		fractal->zoom = 1;
-		fractal->mouse_x = 0;
-		fractal->mouse_y = 0;
-		fractal->x_offset = 1;
-		fractal->y_offset = 1;
-		fractal->start_x = -2;
-		fractal->end_x = 2;
-		fractal->start_y = -2;
-		fractal->end_y = 2;
-		fractal->checker = false;
+		init_values(fractal);
 		fractal_init(fractal, argv);
 		mlx_scroll_hook(fractal->mlx_connection, my_scroll_func, fractal);
-		mlx_key_hook(fractal->mlx_connection, close_func, fractal);\
+		mlx_key_hook(fractal->mlx_connection, close_func, fractal);
 		mlx_loop_hook(fractal->mlx_connection, get_cursor_position, fractal);
 		mlx_loop(fractal->mlx_connection);
 		mlx_terminate(fractal->mlx_connection);
@@ -43,7 +49,7 @@ int	main(int argc, char **argv)
 	else
 	{
 		ft_printf("\nInvalid Input\n\nUse: ./fractol [mandelbrot |"
-						"julia <value> <value> | burning_ship]\n\n");
+			"julia <value> <value>]\n\n");
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);

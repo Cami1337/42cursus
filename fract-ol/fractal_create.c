@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 15:36:24 by lglauch           #+#    #+#             */
-/*   Updated: 2024/03/13 16:45:46 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/03/14 15:58:31 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,12 @@ t_pixel	make_mandelbrot(int x, int y, t_fractal *fractal)
 	return (pixel);
 }
 
-t_pixel	make_julia(int x, int y, t_fractal *fractal)
+t_pixel	make_julia(int x, int y, t_fractal *fractal, char **argv)
 {
 	t_pixel	pixel;
 	int		iter;
 
-	fractal->c_re_julia = fractal->mouse_x / 1000.0;
-	fractal->c_im_julia = fractal->mouse_y / 1000.0;
+	create_c_value(fractal, argv);
 	fractal->x_julia = fractal->start_x + ((double)x / WIDTH)
 		* (fractal->end_x - fractal->start_x);
 	fractal->y_julia = fractal->start_y + ((double)y / HEIGHT)
@@ -89,7 +88,7 @@ void	fractal_create(t_fractal *fractal, char **argv)
 			if (!ft_compare_input(argv[1], "mandelbrot", 10))
 				pixel = make_mandelbrot(x, y, fractal);
 			else if (!ft_compare_input(argv[1], "julia", 5))
-				pixel = make_julia(x, y, fractal);
+				pixel = make_julia(x, y, fractal, argv);
 			if (x * fractal->zoom <= WIDTH && y * fractal->zoom <= HEIGHT)
 			{
 				mlx_put_pixel(fractal->img, pixel.x * fractal->x_offset,

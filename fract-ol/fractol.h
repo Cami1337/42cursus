@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 14:17:26 by lglauch           #+#    #+#             */
-/*   Updated: 2024/03/13 16:31:48 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/03/14 13:35:51 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_fractal
 	double			c_re_julia;
 	double			c_im_julia;
 	bool			checker;
+	bool			params_set;
 	double			x_offset;
 	double			y_offset;
 	double			x_julia;
@@ -77,7 +78,7 @@ typedef struct s_fractal
 void	fractal_init(t_fractal *fractal, char **argv);
 void	fractal_create(t_fractal *fractal, char **argv);
 t_pixel	make_mandelbrot(int x, int y, t_fractal *fractal);
-t_pixel	make_julia(int x, int y, t_fractal *fractal);
+t_pixel	make_julia(int x, int y, t_fractal *fractal, char **argv);
 int		is_mandelbrot(double x, double y, t_fractal fractal);
 int		is_julia(double x, double y, double c_re, double c_im);
 
@@ -86,6 +87,7 @@ int		ft_compare_input(const char *s1, const char *s2, size_t n);
 int		check_julia(int argc, char **argv);
 void	clear_image(t_fractal fractal);
 int		colours(t_fractal *fractal, int iter, t_pixel pixel);
+void	create_c_value(t_fractal *fractal, char **argv);
 
 //hooks
 void	close_func(mlx_key_data_t key_data, void *param);
