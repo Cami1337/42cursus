@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:32:34 by lglauch           #+#    #+#             */
-/*   Updated: 2024/03/18 14:07:21 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/03/18 15:38:46 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,10 @@ int	check_julia(int argc, char **argv)
 			i = 0;
 			while (argv[j][i] != '\0')
 			{
-				if (argv[j][i] == '-' || argv[j][i] == ','
-					|| argv[j][i] == '+' || argv[j][i] == '.')
+				if (argv[j][i] == ',')
+					return (1);
+				if (argv[j][i] == '-' ||
+					argv[j][i] == '+' || argv[j][i] == '.')
 					i++;
 				if (argv[j][i] != 0 && ft_isdigit(argv[j][i]) == 0)
 					return (1);

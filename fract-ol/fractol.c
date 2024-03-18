@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:42:52 by lglauch           #+#    #+#             */
-/*   Updated: 2024/03/18 14:57:54 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/03/18 15:13:23 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 
 void	show_instruc(t_fractal *fractal)
 {
-	mlx_put_string(fractal->mlx_connection, "9 = color mode", 10, 10);
+	mlx_put_string(fractal->mlx_connection,
+		"press 9 + hold space + move mouse = color mode", 10, 10);
 	mlx_put_string(fractal->mlx_connection,
 		"hold space + move mouse = change Julia set", 10, 30);
 	mlx_put_string(fractal->mlx_connection,
 		"scroll = zoom", 10, 50);
+	mlx_put_string(fractal->mlx_connection,
+		"esc = close window", 10, 70);
 }
 
 void	init_values(t_fractal *fractal)
@@ -58,7 +61,7 @@ int	main(int argc, char **argv)
 	}
 	else
 	{
-		ft_printf("\nInvalid Input\n\nUse: ./fractol [mandelbrot |"
+		ft_printf("\nInvalid Input\n\nUse: ./fractol [mandelbrot | "
 			"julia <value> <value>]\n\n");
 		return (EXIT_FAILURE);
 	}
