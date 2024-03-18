@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:32:34 by lglauch           #+#    #+#             */
-/*   Updated: 2024/03/14 15:53:25 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/03/18 14:07:21 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,10 @@ void	create_c_value(t_fractal *fractal, char **argv)
 {
 	if (fractal->params_set == false)
 	{
-		fractal->c_re_julia = atof(argv[2]);
-		fractal->c_im_julia = atof(argv[3]);
-		fractal->mouse_x = atof(argv[2]);
-		fractal->mouse_y = atof(argv[3]);
+		fractal->c_re_julia = ft_ctod(argv[2]);
+		fractal->c_im_julia = ft_ctod(argv[3]);
+		fractal->mouse_x = ft_ctod(argv[2]);
+		fractal->mouse_y = ft_ctod(argv[3]);
 	}
 	else
 	{

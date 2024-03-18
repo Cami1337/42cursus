@@ -3,7 +3,7 @@
 {
 	"name": "42 Dev Container",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+	// "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
 	"dockerFile": "Dockerfile",
 	"customizations": {
 		"vscode": {
@@ -38,7 +38,7 @@
 				"MariusvanWijk-JoppeKoers.codam-norminette-3"
 			]
 		}
-	},
+	}
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
 
@@ -46,7 +46,7 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "echo 'Container created. Happy coding!'"
+	// "postCreateCommand": "echo 'Container created. Happy coding!'"
 
 	// Configure tool-specific properties.
 	// "customizations": {},

@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 14:17:26 by lglauch           #+#    #+#             */
-/*   Updated: 2024/03/14 13:35:51 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/03/18 14:07:08 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ int		check_julia(int argc, char **argv);
 void	clear_image(t_fractal fractal);
 int		colours(t_fractal *fractal, int iter, t_pixel pixel);
 void	create_c_value(t_fractal *fractal, char **argv);
+double	ft_ctod(const char *str);
 
 //hooks
 void	close_func(mlx_key_data_t key_data, void *param);
