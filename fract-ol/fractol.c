@@ -6,11 +6,20 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:42:52 by lglauch           #+#    #+#             */
-/*   Updated: 2024/03/14 16:16:18 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/03/18 14:57:54 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
+void	show_instruc(t_fractal *fractal)
+{
+	mlx_put_string(fractal->mlx_connection, "9 = color mode", 10, 10);
+	mlx_put_string(fractal->mlx_connection,
+		"hold space + move mouse = change Julia set", 10, 30);
+	mlx_put_string(fractal->mlx_connection,
+		"scroll = zoom", 10, 50);
+}
 
 void	init_values(t_fractal *fractal)
 {
@@ -39,6 +48,7 @@ int	main(int argc, char **argv)
 			return (EXIT_FAILURE);
 		init_values(fractal);
 		fractal_init(fractal, argv);
+		show_instruc(fractal);
 		mlx_scroll_hook(fractal->mlx_connection, my_scroll_func, fractal);
 		mlx_key_hook(fractal->mlx_connection, close_func, fractal);
 		mlx_loop_hook(fractal->mlx_connection, get_cursor_position, fractal);
