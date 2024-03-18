@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 14:17:26 by lglauch           #+#    #+#             */
-/*   Updated: 2024/03/18 14:07:08 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/03/18 14:37:22 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <math.h>
-
 
 typedef struct s_mandelbrot
 {

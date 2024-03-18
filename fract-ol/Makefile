@@ -34,6 +34,7 @@ fclean: clean
 	@rm -rf $(NAME)
 	@make -C libft fclean
 	@make -C printf fclean
+	rm -rf MLX42
 
 re: clean all
 
