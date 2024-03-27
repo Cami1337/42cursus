@@ -6,13 +6,13 @@
 #    By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/25 15:10:57 by lglauch           #+#    #+#              #
-#    Updated: 2024/03/25 15:34:54 by lglauch          ###   ########.fr        #
+#    Updated: 2024/03/27 15:01:57 by lglauch          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 CFLAGS	:= -Wextra -Wall -Werror
-SRCS	:= src/*.c
+SRCS	:= src/main.c src/helper.c
 OBJS	:= ${SRCS:src/%.c=src/%.o}
 
 all: $(NAME)

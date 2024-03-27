@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:57:52 by lglauch           #+#    #+#             */
-/*   Updated: 2024/03/25 15:04:59 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/03/27 16:50:27 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,36 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <pthread.h>
+# include <stdbool.h>
+# include <sys/time.h>
 
+# define MAX_INTER 2147483647
+# define MIN_INTER -2147483648
+
+typedef struct s_data
+{
+	int				nb_philo;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				nb_eat;
+	long			start;
+	pthread_mutex_t	*forks;
+	pthread_mutex_t	print;
+}					t_data;
+
+typedef struct s_philo
+{
+	bool			alive;
+	int				eat;
+	int				sleep;
+	int				think;
+	t_data			*data;
+}					t_philo;
+
+int		ft_atoi(const char *str);
+long	get_time(void);
+void	print_action(t_philo *philo, char *action);
+int		is_int(const char *str);
 
 #endif
