@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 12:16:28 by lglauch           #+#    #+#             */
-/*   Updated: 2024/03/27 16:47:41 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/03/28 18:05:59 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,17 +82,17 @@ long	get_converted_time(long start)
 void	print_action(t_philo *philo, char *action)
 {
 	if (philo->data == NULL || action == NULL)
-    {
-        printf("Error: Invalid argument\n");
-        return;
-    }
-    if (philo->data->nb_philo <= 0)
-    {
-        printf("Error: Invalid philosopher number\n");
-        return;
-    }
+	{
+		printf("Error: Invalid argument\n");
+		return ;
+	}
+	if (philo->data->nb_philo <= 0)
+	{
+		printf("Error: Invalid philosopher number\n");
+		return ;
+	}
 	pthread_mutex_lock(&philo->data->print);
 	printf("%ld %d %s\n", get_converted_time(philo->data->start),
-		philo->data->nb_philo, action);
+		philo->id, action);
 	pthread_mutex_unlock(&philo->data->print);
 }

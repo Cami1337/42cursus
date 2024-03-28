@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:57:52 by lglauch           #+#    #+#             */
-/*   Updated: 2024/03/27 16:50:27 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/03/28 18:04:38 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,16 @@ typedef struct s_philo
 	int				eat;
 	int				sleep;
 	int				think;
+	int				id;
 	t_data			*data;
+    pthread_t		thread;
 }					t_philo;
 
 int		ft_atoi(const char *str);
 long	get_time(void);
 void	print_action(t_philo *philo, char *action);
 int		is_int(const char *str);
+void	create_threads(t_data *data, t_philo *philo);
+void	*routine(void *arg);
 
 #endif

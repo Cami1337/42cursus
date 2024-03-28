@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:06:26 by lglauch           #+#    #+#             */
-/*   Updated: 2024/03/27 16:48:23 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/03/28 17:58:56 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,8 @@ int	main(int argc, char **argv)
 			return (0);
 		init_data(&data, argv);
 		philo->data = &data;
-		printf("Number philos: %d\n", data.nb_philo);
-		print_action(philo, "died");
+		create_threads(&data, philo);
 		free(philo);
-		printf("End of simulation\n");
 		return (0);
 	}
 	else
