@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:06:26 by lglauch           #+#    #+#             */
-/*   Updated: 2024/03/28 17:58:56 by leo              ###   ########.fr       */
+/*   Updated: 2024/04/03 16:38:10 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+#include <pthread.h>
 
 void	init_data(t_data *data, char **argv)
 {
@@ -58,7 +59,9 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 	t_philo	*philo;
+	int		i;
 
+	i = 0;
 	if ((argc == 6 || argc == 5) && input_check(argc, argv))
 	{
 		philo = malloc(sizeof(t_philo) * ft_atoi(argv[1]));
@@ -66,7 +69,13 @@ int	main(int argc, char **argv)
 			return (0);
 		init_data(&data, argv);
 		philo->data = &data;
-		create_threads(&data, philo);
+		while (1 && i != data.nb_eat)
+		{
+			create_threads(&data, philo);
+			i++;
+		}
+		printf("Should eat %d times\n", data.nb_eat); //delete
+		printf("All philosophers have eaten %d times\n", i); //delete
 		free(philo);
 		return (0);
 	}
