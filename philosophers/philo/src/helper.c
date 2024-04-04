@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 12:16:28 by lglauch           #+#    #+#             */
-/*   Updated: 2024/04/03 14:36:18 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/04/04 17:16:43 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,3 +96,4 @@ void	print_action(t_philo *philo, char *action)
 		philo->id, action);
 	pthread_mutex_unlock(&philo->data->print);
 }
+

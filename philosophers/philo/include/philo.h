@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:57:52 by lglauch           #+#    #+#             */
-/*   Updated: 2024/04/03 15:11:54 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/04/04 17:16:00 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,6 @@ int		is_int(const char *str);
 void	create_threads(t_data *data, t_philo *philo);
 void	*routine(void *arg);
 void	check_status(t_philo philo);
+int		precise_sleep(int milliseconds);
 
 #endif

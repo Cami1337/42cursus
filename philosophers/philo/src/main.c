@@ -3,21 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:06:26 by lglauch           #+#    #+#             */
-/*   Updated: 2024/04/03 16:38:10 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/04/04 17:22:24 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 #include <pthread.h>
 
-void	init_data(t_data *data, char **argv)
+void	init_data(t_data *data, char **argv, t_philo *philo)
 {
 	int	fork_number;
 
 	data->nb_philo = ft_atoi(argv[1]);
+	if (data->nb_philo < 2)
+	{
+		print_action(philo, "died");
+		printf("Error: Not enough philosophers\n");
+		exit(1);
+	}
 	data->time_to_die = ft_atoi(argv[2]);
 	data->time_to_eat = ft_atoi(argv[3]);
 	data->time_to_sleep = ft_atoi(argv[4]);
@@ -67,7 +73,7 @@ int	main(int argc, char **argv)
 		philo = malloc(sizeof(t_philo) * ft_atoi(argv[1]));
 		if (!philo)
 			return (0);
-		init_data(&data, argv);
+		init_data(&data, argv, philo);
 		philo->data = &data;
 		while (1 && i != data.nb_eat)
 		{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:07:22 by leo               #+#    #+#             */
-/*   Updated: 2024/04/03 17:00:37 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/04/04 17:18:54 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,25 +20,25 @@ void	*routine(void *arg)
 	arg = NULL;
 	if (philo->id % 2 == 0)
 	{
-		pthread_mutex_lock(&philo->data->forks[(philo->id + 1) % philo->data->nb_philo]);
+		pthread_mutex_lock(&philo->data->forks[(philo->id)]);
 		print_action(philo, "has taken a fork");
-		pthread_mutex_lock(&philo->data->forks[philo->id]);
+		pthread_mutex_lock(&philo->data->forks[(philo->id + 1) % philo->data->nb_philo]);
 		print_action(philo, "has taken a fork");
 	}
 	else
 	{
-		pthread_mutex_lock(&philo->data->forks[philo->id]);
+		pthread_mutex_lock(&philo->data->forks[philo->id + 1]);
 		print_action(philo, "has taken a fork");
-		pthread_mutex_lock(&philo->data->forks[(philo->id + 1) % philo->data->nb_philo]);
+		pthread_mutex_lock(&philo->data->forks[(philo->id) % philo->data->nb_philo]);
 		print_action(philo, "has taken a fork");
 	}
 	print_action(philo, "is eating");
 	philo->data->time_last_meal = get_time();
-	usleep(philo->data->time_to_eat * 1000);
-	pthread_mutex_unlock(&philo->data->forks[philo->id]);
+	precise_sleep(philo->data->time_to_eat);
 	pthread_mutex_unlock(&philo->data->forks[(philo->id + 1) % philo->data->nb_philo]);
+	pthread_mutex_unlock(&philo->data->forks[philo->id]);
 	print_action(philo, "is sleeping");
-	usleep(philo->data->time_to_sleep * 1000);
+	precise_sleep(philo->data->time_to_sleep);
 	print_action(philo, "is thinking");
 	check_status(*philo);
 	return (NULL);
@@ -67,10 +67,22 @@ void	create_threads(t_data *data, t_philo *philo)
 
 void	check_status(t_philo philo)
 {
-	if (philo.data->time_to_die < get_time() - philo.data->time_last_meal)
+	if (philo.data->time_to_die <= get_time() - philo.data->time_last_meal)
 	{
 		print_action(&philo, "died");
 		philo.alive = false;
-		exit(0) ;
+		exit(0) ; //delete or fix later (free etc.)
 	}
+}
+
+int	precise_sleep(int milliseconds)
+{
+	long	start;
+
+	start = get_time();
+	while (get_time() - start < milliseconds)
+	{
+		usleep(250);
+	}
+	return (1);
 }
