@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: leo <leo@student.42.fr>                    +#+  +:+       +#+         #
+#    By: intra <intra@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/25 15:10:57 by lglauch           #+#    #+#              #
-#    Updated: 2024/03/28 16:33:40 by leo              ###   ########.fr        #
+#    Updated: 2024/04/08 13:14:58 by intra            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,3 +30,6 @@ fclean: clean
 	rm -rf $(NAME)
 
 re: clean all
+
+debug: CFLAGS += -g -O0
+debug: fclean $(NAME)

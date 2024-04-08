@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 12:16:28 by lglauch           #+#    #+#             */
-/*   Updated: 2024/04/04 17:16:43 by leo              ###   ########.fr       */
+/*   Updated: 2024/04/08 16:34:16 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,12 @@ void	print_action(t_philo *philo, char *action)
 	{
 		printf("Error: Invalid philosopher number\n");
 		return ;
+	}
+	if (philo->data->nb_philo == 1)
+	{
+		printf("%d %d %s\n", philo->data->time_to_die,
+			philo->id, "died");
+		exit(0);
 	}
 	pthread_mutex_lock(&philo->data->print);
 	printf("%ld %d %s\n", get_converted_time(philo->data->start),

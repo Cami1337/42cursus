@@ -3,27 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:06:26 by lglauch           #+#    #+#             */
-/*   Updated: 2024/04/04 17:22:24 by leo              ###   ########.fr       */
+/*   Updated: 2024/04/08 16:45:09 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 #include <pthread.h>
 
-void	init_data(t_data *data, char **argv, t_philo *philo)
+void	init_data(t_data *data, char **argv)
 {
 	int	fork_number;
 
 	data->nb_philo = ft_atoi(argv[1]);
-	if (data->nb_philo < 2)
-	{
-		print_action(philo, "died");
-		printf("Error: Not enough philosophers\n");
-		exit(1);
-	}
 	data->time_to_die = ft_atoi(argv[2]);
 	data->time_to_eat = ft_atoi(argv[3]);
 	data->time_to_sleep = ft_atoi(argv[4]);
@@ -37,6 +31,8 @@ void	init_data(t_data *data, char **argv, t_philo *philo)
 		pthread_mutex_init(&data->forks[fork_number], NULL);
 	data->start = get_time();
 	pthread_mutex_init(&data->print, NULL);
+	data->run = true;
+	printf("Data->run : %d\n", data->run);
 }
 
 int	input_check(int argc, char **argv)
@@ -63,26 +59,24 @@ int	input_check(int argc, char **argv)
 
 int	main(int argc, char **argv)
 {
-	t_data	data;
+	t_data	*data;
 	t_philo	*philo;
-	int		i;
 
-	i = 0;
 	if ((argc == 6 || argc == 5) && input_check(argc, argv))
 	{
 		philo = malloc(sizeof(t_philo) * ft_atoi(argv[1]));
 		if (!philo)
 			return (0);
-		init_data(&data, argv, philo);
-		philo->data = &data;
-		while (1 && i != data.nb_eat)
-		{
-			create_threads(&data, philo);
-			i++;
-		}
-		printf("Should eat %d times\n", data.nb_eat); //delete
-		printf("All philosophers have eaten %d times\n", i); //delete
+		data = malloc(sizeof(t_data));
+		if (!data)
+			return (0);
+		init_data(data, argv);
+		philo->data = data;
+		create_threads(data, philo);
+		printf("Should eat %d times\n", data->nb_eat);
 		free(philo);
+		free(data->forks);
+		free(data);
 		return (0);
 	}
 	else
