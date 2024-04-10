@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:06:26 by lglauch           #+#    #+#             */
-/*   Updated: 2024/04/08 16:45:09 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/04/10 15:32:13 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,17 @@ void	init_data(t_data *data, char **argv)
 	else
 		data->nb_eat = -1;
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->nb_philo);
+	if (!data->forks)
+	{
+		printf("Error: malloc failed in data->forks\n");
+		exit(0);
+	}
 	fork_number = ft_atoi(argv[1]);
 	while (--fork_number >= 0)
 		pthread_mutex_init(&data->forks[fork_number], NULL);
 	data->start = get_time();
 	pthread_mutex_init(&data->print, NULL);
 	data->run = true;
-	printf("Data->run : %d\n", data->run);
 }
 
 int	input_check(int argc, char **argv)
@@ -73,10 +77,6 @@ int	main(int argc, char **argv)
 		init_data(data, argv);
 		philo->data = data;
 		create_threads(data, philo);
-		printf("Should eat %d times\n", data->nb_eat);
-		free(philo);
-		free(data->forks);
-		free(data);
 		return (0);
 	}
 	else

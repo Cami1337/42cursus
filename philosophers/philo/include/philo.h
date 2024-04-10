@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:57:52 by lglauch           #+#    #+#             */
-/*   Updated: 2024/04/08 15:51:58 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/04/10 15:12:46 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ typedef struct s_data
 	int				time_to_sleep;
 	int				nb_eat;
 	long			start;
-	long			time_last_meal;
 	int				run;
+	pthread_mutex_t	checker_mutex;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
 	pthread_t		monitoring;	
@@ -45,6 +45,8 @@ typedef struct s_philo
 	int				sleep;
 	int				think;
 	int				id;
+	long			time_last_meal;
+	bool			started_eating;
 	t_data			*data;
     pthread_t		thread;
 }					t_philo;
