@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:06:26 by lglauch           #+#    #+#             */
-/*   Updated: 2024/04/10 15:32:13 by leo              ###   ########.fr       */
+/*   Updated: 2024/04/11 13:10:10 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	init_data(t_data *data, char **argv)
 		pthread_mutex_init(&data->forks[fork_number], NULL);
 	data->start = get_time();
 	pthread_mutex_init(&data->print, NULL);
+	pthread_mutex_init(&data->lock, NULL);
 	data->run = true;
 }
 

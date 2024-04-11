@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:07:22 by leo               #+#    #+#             */
-/*   Updated: 2024/04/10 19:37:16 by leo              ###   ########.fr       */
+/*   Updated: 2024/04/11 13:10:19 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	*routine(void *arg)
 {
 	t_philo			*philo;
-	static int		i = 0;
 
 	philo = (t_philo *)arg;
 	arg = NULL;
@@ -23,37 +22,28 @@ void	*routine(void *arg)
 	{
 		if (philo->id % 2 == 0)
 		{
-			pthread_mutex_lock(&philo->data->forks[(philo->id - 1)]);
-			print_action(philo, "has taken a fork");
 			pthread_mutex_lock(&philo->data->forks[(philo->id) % philo->data->nb_philo]);
+			print_action(philo, "has taken a fork");
+			pthread_mutex_lock(&philo->data->forks[(philo->id - 1)]);
 			print_action(philo, "has taken a fork");
 		}
 		else
 		{
-			pthread_mutex_lock(&philo->data->forks[(philo->id) % philo->data->nb_philo]);
-			print_action(philo, "has taken a fork");
 			pthread_mutex_lock(&philo->data->forks[(philo->id - 1)]);
 			print_action(philo, "has taken a fork");
+			pthread_mutex_lock(&philo->data->forks[(philo->id) % philo->data->nb_philo]);
+			print_action(philo, "has taken a fork");
 		}
-		philo->time_last_meal = get_time();
 		print_action(philo, "is eating");
+		philo->time_last_meal = get_time();
+		precise_sleep(philo->data->time_to_sleep);
 		philo->started_eating = true;
 		philo->eat++;
-		precise_sleep(philo->data->time_to_sleep);
 		pthread_mutex_unlock(&philo->data->forks[(philo->id) % philo->data->nb_philo]);
 		pthread_mutex_unlock(&philo->data->forks[philo->id - 1]);
 		print_action(philo, "is sleeping");
 		precise_sleep(philo->data->time_to_sleep);
 		print_action(philo, "is thinking");
-		}
-		precise_sleep(10);
-		if (philo->eat == philo->data->nb_eat)
-			i++;
-		printf("i = %d\n", i);
-		if (i == philo->data->nb_philo)
-		{
-			printf("all philo ate %d times\n", philo->data->nb_eat);
-			exit (1); // free later
 		}
 	return (NULL);
 }
@@ -97,13 +87,20 @@ void	*check_status(void *arg)
 		i = 0;
 		while (i < philo->data->nb_philo)
 		{
+			if (finished_eating(philo))
+			{
+				precise_sleep(5);
+				printf("finished eating\n");
+				exit(0);
+			}
 			if (philo[i].eat == philo->data->nb_eat)
 				philo[i].alive = false;
 			if (philo[i].started_eating && philo[i].data->time_to_die <= get_time()
 				- philo[i].time_last_meal)
 			{
 				philo->data->run = false;
-				print_action(&philo[i], "died blaa");
+				precise_sleep(5);
+				print_action(&philo[i], "died");
 				exit (0);// fix lateeeeeeeeeeeeeeeeeeeeeeer
 			}
 			i++;
@@ -121,6 +118,22 @@ int	precise_sleep(int milliseconds)
 	while (get_time() - start < milliseconds)
 	{
 		usleep(250);
+	}
+	return (1);
+}
+
+int	finished_eating(t_philo *philo)
+{
+	int	i;
+
+	i = 0;
+	if (philo->data->nb_eat == -1)
+		return (0);
+	while (i < philo->data->nb_philo)
+	{
+		if (philo[i].eat < philo->data->nb_eat)
+			return (0);
+		i++;
 	}
 	return (1);
 }
