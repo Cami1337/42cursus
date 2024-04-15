@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:57:52 by lglauch           #+#    #+#             */
-/*   Updated: 2024/04/11 13:10:24 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/04/15 18:49:19 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,12 @@ typedef struct s_data
 	int				nb_eat;
 	long			start;
 	int				run;
-	pthread_mutex_t	lock;
+	pthread_mutex_t	eat_count;
+	pthread_mutex_t	last_meal;
 	pthread_mutex_t	checker_mutex;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
+	pthread_mutex_t	hungriest;
 	pthread_t		monitoring;	
 }					t_data;
 
@@ -61,5 +63,9 @@ void	*routine(void *arg);
 void	*check_status(void *arg);
 int		precise_sleep(int milliseconds);
 int		finished_eating(t_philo *philo);
+void	take_left_fork(t_philo *philo);
+void	take_right_fork(t_philo *philo);
+void	is_eating(t_philo *philo);
+t_philo	*find_hungriest_philo(t_philo *philo);
 
 #endif

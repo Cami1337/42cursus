@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:07:22 by leo               #+#    #+#             */
-/*   Updated: 2024/04/11 13:10:19 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/04/15 19:07:10 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,36 +15,35 @@
 void	*routine(void *arg)
 {
 	t_philo			*philo;
+	t_philo			*hungriest;
 
 	philo = (t_philo *)arg;
 	arg = NULL;
 	while (philo->data->run == true && philo->alive == true)
 	{
-		if (philo->id % 2 == 0)
+		pthread_mutex_lock(&philo->data->hungriest);
+		hungriest = find_hungriest_philo(philo);
+		if (philo == hungriest)
 		{
-			pthread_mutex_lock(&philo->data->forks[(philo->id) % philo->data->nb_philo]);
-			print_action(philo, "has taken a fork");
-			pthread_mutex_lock(&philo->data->forks[(philo->id - 1)]);
-			print_action(philo, "has taken a fork");
+			if (philo->id % 2 == 0)
+			{
+				if (philo->eat == 0)
+					precise_sleep(1);
+				take_left_fork(philo);
+				take_right_fork(philo);
+			}
+			else
+			{
+				take_right_fork(philo);
+				take_left_fork(philo);
+			}
+			is_eating(philo);
+			print_action(philo, "is sleeping");
+			precise_sleep(philo->data->time_to_sleep);
+			print_action(philo, "is thinking");
 		}
-		else
-		{
-			pthread_mutex_lock(&philo->data->forks[(philo->id - 1)]);
-			print_action(philo, "has taken a fork");
-			pthread_mutex_lock(&philo->data->forks[(philo->id) % philo->data->nb_philo]);
-			print_action(philo, "has taken a fork");
-		}
-		print_action(philo, "is eating");
-		philo->time_last_meal = get_time();
-		precise_sleep(philo->data->time_to_sleep);
-		philo->started_eating = true;
-		philo->eat++;
-		pthread_mutex_unlock(&philo->data->forks[(philo->id) % philo->data->nb_philo]);
-		pthread_mutex_unlock(&philo->data->forks[philo->id - 1]);
-		print_action(philo, "is sleeping");
-		precise_sleep(philo->data->time_to_sleep);
-		print_action(philo, "is thinking");
-		}
+		pthread_mutex_unlock(&philo->data->hungriest);
+	}
 	return (NULL);
 }
 
@@ -71,8 +70,8 @@ void	create_threads(t_data *data, t_philo *philo)
 		pthread_join(philo[i++].thread, NULL);
 	pthread_join(data->monitoring, NULL);
 	free(data->forks);
-    free(data);
-    free(philo);
+	free(data);
+	free(philo);
 }
 
 void	*check_status(void *arg)

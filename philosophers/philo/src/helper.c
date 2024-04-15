@@ -6,7 +6,7 @@
 /*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 12:16:28 by lglauch           #+#    #+#             */
-/*   Updated: 2024/04/10 15:35:42 by leo              ###   ########.fr       */
+/*   Updated: 2024/04/12 14:09:59 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,6 @@ void	print_action(t_philo *philo, char *action)
 {
 	if (philo->data == NULL || action == NULL)
 	{
-		printf("skrrrrr\n");
-		return ;
-	}
-	if (philo->data == NULL || action == NULL)
-	{
 		printf("Error: Invalid argument\n");
 		return ;
 	}
@@ -100,7 +95,7 @@ void	print_action(t_philo *philo, char *action)
 	{
 		printf("%d %d %s\n", philo->data->time_to_die,
 			philo->id, "died");
-		exit(0);
+		exit(0); ///freee laaateeeeer
 	}
 	pthread_mutex_lock(&philo->data->print);
 	printf("%ld %d %s\n", get_converted_time(philo->data->start),

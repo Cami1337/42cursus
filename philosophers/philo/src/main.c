@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:06:26 by lglauch           #+#    #+#             */
-/*   Updated: 2024/04/11 13:10:10 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/04/15 19:05:40 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,16 @@ void	init_data(t_data *data, char **argv)
 		data->nb_eat = -1;
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->nb_philo);
 	if (!data->forks)
-	{
-		printf("Error: malloc failed in data->forks\n");
 		exit(0);
-	}
 	fork_number = ft_atoi(argv[1]);
 	while (--fork_number >= 0)
 		pthread_mutex_init(&data->forks[fork_number], NULL);
 	data->start = get_time();
 	pthread_mutex_init(&data->print, NULL);
-	pthread_mutex_init(&data->lock, NULL);
+	pthread_mutex_init(&data->last_meal, NULL);
+	pthread_mutex_init(&data->eat_count, NULL);
+	pthread_mutex_init(&data->hungriest, NULL);
+	pthread_mutex_init(&data->checker_mutex, NULL);
 	data->run = true;
 }
 
