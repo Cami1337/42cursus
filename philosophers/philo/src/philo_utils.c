@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:33:07 by leo               #+#    #+#             */
-/*   Updated: 2024/04/15 18:56:13 by leo              ###   ########.fr       */
+/*   Updated: 2024/04/16 15:07:44 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,25 @@ void	is_eating(t_philo *philo)
 	pthread_mutex_unlock(&philo->data->eat_count);
 }
 
-t_philo	*find_hungriest_philo(t_philo *philo)
+void	pick_up_forks(t_philo *philo)
 {
-	int		i;
-	t_philo	*hungriest;
-
-	i = 1;
-	hungriest = &philo[0];
-	while (i < philo->data->nb_philo)
+	if (philo->id % 2 == 0)
 	{
-		if (philo[i].time_last_meal < hungriest->time_last_meal ||
-            (philo[i].time_last_meal == hungriest->time_last_meal && philo[i].id < hungriest->id))
-			hungriest = &philo[i];
-		i++;
+		take_left_fork(philo);
+		take_right_fork(philo);
 	}
-	return (hungriest);
+	else
+	{
+		take_right_fork(philo);
+		take_left_fork(philo);
+	}
+}
+
+void	eating_check(t_philo *philo)
+{
+	if (philo != NULL)
+	{
+		philo->allowed_to_eat = true;
+	}
+	philo = philo->next;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:06:26 by lglauch           #+#    #+#             */
-/*   Updated: 2024/04/15 19:05:40 by leo              ###   ########.fr       */
+/*   Updated: 2024/04/16 13:16:05 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,10 @@ void	init_data(t_data *data, char **argv)
 	pthread_mutex_init(&data->print, NULL);
 	pthread_mutex_init(&data->last_meal, NULL);
 	pthread_mutex_init(&data->eat_count, NULL);
-	pthread_mutex_init(&data->hungriest, NULL);
+	pthread_mutex_init(&data->protect_eat, NULL);
 	pthread_mutex_init(&data->checker_mutex, NULL);
 	data->run = true;
+	data->even_turn = true;
 }
 
 int	input_check(int argc, char **argv)
