@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:33:07 by leo               #+#    #+#             */
-/*   Updated: 2024/04/16 15:07:44 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/04/17 15:31:10 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,3 @@ void	pick_up_forks(t_philo *philo)
 	}
 }
 
-void	eating_check(t_philo *philo)
-{
-	if (philo != NULL)
-	{
-		philo->allowed_to_eat = true;
-	}
-	philo = philo->next;
-}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:57:52 by lglauch           #+#    #+#             */
-/*   Updated: 2024/04/16 14:50:46 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/04/17 17:12:30 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,11 @@ typedef struct s_data
 	int				nb_eat;
 	long			start;
 	int				run;
-	bool			even_turn;
 	pthread_mutex_t	eat_count;
 	pthread_mutex_t	last_meal;
 	pthread_mutex_t	checker_mutex;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
-	pthread_mutex_t	protect_eat;
 	pthread_t		monitoring;	
 }					t_data;
 
@@ -51,8 +49,6 @@ typedef struct s_philo
 	int				id;
 	long			time_last_meal;
 	bool			started_eating;
-	bool			allowed_to_eat;
-	struct s_philo	*next;
 	t_data			*data;
     pthread_t		thread;
 }					t_philo;
@@ -70,6 +66,6 @@ void	take_left_fork(t_philo *philo);
 void	take_right_fork(t_philo *philo);
 void	is_eating(t_philo *philo);
 void	pick_up_forks(t_philo *philo);
-void	eating_check(t_philo *philo);
+void	clear_data(t_philo *philo);
 
 #endif

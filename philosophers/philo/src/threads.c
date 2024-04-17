@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:07:22 by leo               #+#    #+#             */
-/*   Updated: 2024/04/16 14:57:31 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/04/17 17:13:18 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ void	create_threads(t_data *data, t_philo *philo)
 		philo[i].sleep = 0;
 		philo[i].think = 0;
 		philo[i].started_eating = false;
-		philo[i].next = &philo[(i + 1) % data->nb_philo];
 		pthread_create(&philo[i].thread, NULL, &routine, &philo[i]);
+		precise_sleep(0.2);
 		i++;
 	}
 	i = 0;
@@ -52,9 +52,6 @@ void	create_threads(t_data *data, t_philo *philo)
 	while (i < data->nb_philo)
 		pthread_join(philo[i++].thread, NULL);
 	pthread_join(data->monitoring, NULL);
-	free(data->forks);
-	free(data);
-	free(philo);
 }
 
 void	*check_status(void *arg)
@@ -76,7 +73,7 @@ void	*check_status(void *arg)
 				- philo[i].time_last_meal)
 			{
 				philo->data->run = false;
-				precise_sleep(5);
+				precise_sleep(4);
 				print_action(&philo[i], "died");
 				exit (0);// fix lateeeeeeeeeeeeeeeeeeeeeeer
 			}
