@@ -6,7 +6,7 @@
 /*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:06:26 by lglauch           #+#    #+#             */
-/*   Updated: 2024/04/18 13:05:47 by leo              ###   ########.fr       */
+/*   Updated: 2024/04/18 21:21:00 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int	main(int argc, char **argv)
 		philo->data = data;
 		create_threads(data, philo);
 		clear_data(philo);
+		free(philo);
 		return (0);
 	}
 	else
