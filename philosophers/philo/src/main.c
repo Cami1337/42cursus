@@ -6,7 +6,7 @@
 /*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:06:26 by lglauch           #+#    #+#             */
-/*   Updated: 2024/04/18 12:29:09 by leo              ###   ########.fr       */
+/*   Updated: 2024/04/18 13:05:47 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	input_check(int argc, char **argv)
 	while (i < argc)
 	{
 		j = 0;
-		if (!is_int(argv[i]))
+		if (!is_int(argv[i]) || argv[i][0] <= '0')
 			return (0);
 		while (argv[i][j])
 		{

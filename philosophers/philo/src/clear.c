@@ -6,7 +6,7 @@
 /*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 12:30:20 by lglauch           #+#    #+#             */
-/*   Updated: 2024/04/18 12:27:13 by leo              ###   ########.fr       */
+/*   Updated: 2024/04/18 13:10:35 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,12 @@ void	clear_data(t_philo *philo)
 	printf("free philo->data\n");
 	if (philo->data)
 		free(philo->data);
-	printf("free philo\n");
+	printf("free dataa\n");
 	if (philo)
+	{
+		printf("free philo\n");
 		free(philo);
+	}
 	printf("free\n");
 }
 

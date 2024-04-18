@@ -6,7 +6,7 @@
 /*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:07:22 by leo               #+#    #+#             */
-/*   Updated: 2024/04/18 12:26:10 by leo              ###   ########.fr       */
+/*   Updated: 2024/04/18 13:10:01 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,7 @@ void	*check_status(void *arg)
 		i = 0;
 		while (i < philo->data->nb_philo)
 		{
-			if (finished_eating(philo))
-			{
-				exit(0);
-			}
+			finished_eating(philo);
 			if (philo[i].eat == philo->data->nb_eat)
 				philo[i].alive = false;
 			if (philo[i].started_eating && philo[i].data->time_to_die
