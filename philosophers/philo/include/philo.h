@@ -6,7 +6,7 @@
 /*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:57:52 by lglauch           #+#    #+#             */
-/*   Updated: 2024/04/17 17:12:30 by leo              ###   ########.fr       */
+/*   Updated: 2024/04/18 11:59:55 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,6 @@ void	take_right_fork(t_philo *philo);
 void	is_eating(t_philo *philo);
 void	pick_up_forks(t_philo *philo);
 void	clear_data(t_philo *philo);
+void	kill_philo(t_philo *philo);
 
 #endif

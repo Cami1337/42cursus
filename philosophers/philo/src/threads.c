@@ -6,7 +6,7 @@
 /*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:07:22 by leo               #+#    #+#             */
-/*   Updated: 2024/04/17 17:13:18 by leo              ###   ########.fr       */
+/*   Updated: 2024/04/18 12:26:10 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	create_threads(t_data *data, t_philo *philo)
 		philo[i].think = 0;
 		philo[i].started_eating = false;
 		pthread_create(&philo[i].thread, NULL, &routine, &philo[i]);
-		precise_sleep(0.2);
+		precise_sleep(0.5);
 		i++;
 	}
 	i = 0;
@@ -66,17 +66,15 @@ void	*check_status(void *arg)
 		i = 0;
 		while (i < philo->data->nb_philo)
 		{
-			finished_eating(philo);
+			if (finished_eating(philo))
+			{
+				exit(0);
+			}
 			if (philo[i].eat == philo->data->nb_eat)
 				philo[i].alive = false;
-			if (philo[i].started_eating && philo[i].data->time_to_die <= get_time()
-				- philo[i].time_last_meal)
-			{
-				philo->data->run = false;
-				precise_sleep(4);
-				print_action(&philo[i], "died");
-				exit (0);// fix lateeeeeeeeeeeeeeeeeeeeeeer
-			}
+			if (philo[i].started_eating && philo[i].data->time_to_die
+				<= get_time() - philo[i].time_last_meal)
+				kill_philo(&philo[i]);
 			i++;
 		}
 	}
@@ -111,6 +109,5 @@ int	finished_eating(t_philo *philo)
 	}
 	precise_sleep(4);
 	printf("finished eating\n");
-	exit(0); // fix lateeeeeeeeeeeeeeeeeeeeeer
 	return (1);
 }

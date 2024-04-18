@@ -6,7 +6,7 @@
 /*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 12:16:28 by lglauch           #+#    #+#             */
-/*   Updated: 2024/04/12 14:09:59 by leo              ###   ########.fr       */
+/*   Updated: 2024/04/18 11:57:24 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,12 @@ void	print_action(t_philo *philo, char *action)
 	{
 		printf("%d %d %s\n", philo->data->time_to_die,
 			philo->id, "died");
-		exit(0); ///freee laaateeeeer
+		clear_data(philo);
+		exit(0);
 	}
 	pthread_mutex_lock(&philo->data->print);
 	printf("%ld %d %s\n", get_converted_time(philo->data->start),
 		philo->id, action);
 	pthread_mutex_unlock(&philo->data->print);
 }
+

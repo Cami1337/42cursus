@@ -6,14 +6,13 @@
 /*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:06:26 by lglauch           #+#    #+#             */
-/*   Updated: 2024/04/17 17:13:06 by leo              ###   ########.fr       */
+/*   Updated: 2024/04/18 12:29:09 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
-#include <pthread.h>
 
-void	init_data(t_data *data, char **argv)
+void	init_data(t_data *data, char **argv, t_philo *philo)
 {
 	int	fork_number;
 
@@ -27,7 +26,11 @@ void	init_data(t_data *data, char **argv)
 		data->nb_eat = -1;
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->nb_philo);
 	if (!data->forks)
+	{
+		free(data);
+		free(philo);
 		exit(0);
+	}
 	fork_number = ft_atoi(argv[1]);
 	while (--fork_number >= 0)
 		pthread_mutex_init(&data->forks[fork_number], NULL);
@@ -73,8 +76,11 @@ int	main(int argc, char **argv)
 			return (0);
 		data = malloc(sizeof(t_data));
 		if (!data)
+		{
+			free(philo);
 			return (0);
-		init_data(data, argv);
+		}
+		init_data(data, argv, philo);
 		philo->data = data;
 		create_threads(data, philo);
 		clear_data(philo);

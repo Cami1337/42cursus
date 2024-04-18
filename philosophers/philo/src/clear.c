@@ -6,7 +6,7 @@
 /*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 12:30:20 by lglauch           #+#    #+#             */
-/*   Updated: 2024/04/17 17:03:21 by leo              ###   ########.fr       */
+/*   Updated: 2024/04/18 12:27:13 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,22 @@ void	clear_data(t_philo *philo)
 	pthread_mutex_destroy(&philo->data->last_meal);
 	pthread_mutex_destroy(&philo->data->eat_count);
 	pthread_mutex_destroy(&philo->data->checker_mutex);
-	free(philo->data->forks);
-	free(philo->data);
-	free(philo);
+	if (philo->data->forks)
+		free(philo->data->forks);
+	printf("free philo->data\n");
+	if (philo->data)
+		free(philo->data);
+	printf("free philo\n");
+	if (philo)
+		free(philo);
+	printf("free\n");
+}
+
+void	kill_philo(t_philo *philo)
+{
+	philo->data->run = false;
+	precise_sleep(4);
+	print_action(philo, "died");
+	clear_data(philo);
+	exit (0);
 }

@@ -6,7 +6,7 @@
 #    By: leo <leo@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/25 15:10:57 by lglauch           #+#    #+#              #
-#    Updated: 2024/04/17 17:14:04 by leo              ###   ########.fr        #
+#    Updated: 2024/04/18 11:49:26 by leo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,3 @@ fclean: clean
 	rm -rf $(NAME)
 
 re: clean all
-
-debug: CFLAGS += -g -O0
-debug: fclean $(NAME)
