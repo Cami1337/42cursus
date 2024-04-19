@@ -6,7 +6,7 @@
 /*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:07:22 by leo               #+#    #+#             */
-/*   Updated: 2024/04/18 21:35:08 by leo              ###   ########.fr       */
+/*   Updated: 2024/04/19 14:31:26 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,21 @@ void	*routine(void *arg)
 	while (philo->data->run == true && philo->alive == true)
 	{
 		pick_up_forks(philo);
+		if (philo->data->run == false)
+			return (NULL);
 		is_eating(philo);
+		if (philo->data->run == false)
+			return (NULL);
 		print_action(philo, "is sleeping");
 		precise_sleep(philo->data->time_to_sleep);
+		if (philo->data->run == false)
+			return (NULL);
 		print_action(philo, "is thinking");
 	}
 	return (NULL);
 }
 
-void	create_threads(t_data *data, t_philo *philo)
+int	create_threads(t_data *data, t_philo *philo)
 {
 	int	i;
 
@@ -43,15 +49,18 @@ void	create_threads(t_data *data, t_philo *philo)
 		philo[i].sleep = 0;
 		philo[i].think = 0;
 		philo[i].started_eating = false;
-		pthread_create(&philo[i].thread, NULL, &routine, &philo[i]);
+		if (pthread_create(&philo[i].thread, NULL, &routine, &philo[i]))
+			return (1);
 		precise_sleep(1);
 		i++;
 	}
 	i = 0;
-	pthread_create(&data->monitoring, NULL, &check_status, philo);
+	if (pthread_create(&data->monitoring, NULL, &check_status, philo))
+		return (1);
 	while (i < data->nb_philo)
 		pthread_join(philo[i++].thread, NULL);
 	pthread_join(data->monitoring, NULL);
+	return (0);
 }
 
 void	*check_status(void *arg)
@@ -71,9 +80,12 @@ void	*check_status(void *arg)
 				philo[i].alive = false;
 			if (philo[i].started_eating && philo[i].data->time_to_die
 				<= get_time() - philo[i].time_last_meal)
-				kill_philo(&philo[i]);
+				if (kill_philo(&philo[i]))
+					return ((void *)1);
 			i++;
 		}
+		if (philo->data->run == false)
+			break ;
 	}
 	pthread_mutex_unlock(&philo->data->checker_mutex);
 	return (NULL);

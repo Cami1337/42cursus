@@ -6,11 +6,12 @@
 /*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:06:26 by lglauch           #+#    #+#             */
-/*   Updated: 2024/04/18 21:21:00 by leo              ###   ########.fr       */
+/*   Updated: 2024/04/19 14:09:15 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+#include <stdlib.h>
 
 void	init_data(t_data *data, char **argv, t_philo *philo)
 {
@@ -24,22 +25,16 @@ void	init_data(t_data *data, char **argv, t_philo *philo)
 		data->nb_eat = ft_atoi(argv[5]);
 	else
 		data->nb_eat = -1;
-	data->forks = malloc(sizeof(pthread_mutex_t) * data->nb_philo);
-	if (!data->forks)
-	{
-		free(data);
-		free(philo);
-		exit(0);
-	}
 	fork_number = ft_atoi(argv[1]);
 	while (--fork_number >= 0)
 		pthread_mutex_init(&data->forks[fork_number], NULL);
-	data->start = get_time();
 	pthread_mutex_init(&data->print, NULL);
 	pthread_mutex_init(&data->last_meal, NULL);
 	pthread_mutex_init(&data->eat_count, NULL);
 	pthread_mutex_init(&data->checker_mutex, NULL);
+	data->start = get_time();
 	data->run = true;
+	philo->data = data;
 }
 
 int	input_check(int argc, char **argv)
@@ -64,6 +59,40 @@ int	input_check(int argc, char **argv)
 	return (1);
 }
 
+int	malloc_all(t_philo **philo, t_data **data, char **argv)
+{
+	*philo = malloc(sizeof(t_philo) * ft_atoi(argv[1]));
+		if (!*philo)
+			return (1);
+		*data = malloc(sizeof(t_data));
+		if (!*data)
+		{
+			free(*philo);
+			return (1);
+		}
+		(*data)->forks = malloc(sizeof(pthread_mutex_t) * ft_atoi(argv[1]));
+	if (!(*data)->forks)
+	{
+		free(*data);
+		free(*philo);
+		return (1);
+	}
+	return (0);
+}
+
+int	case_one(t_philo *philo)
+{
+	if (philo->data->nb_philo == 1)
+	{
+		printf("%d %d %s\n", philo->data->time_to_die,
+		philo->id + 1, "died");
+		precise_sleep(4);
+		clear_data(philo);
+		return (1);
+	}
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	*data;
@@ -71,23 +100,17 @@ int	main(int argc, char **argv)
 
 	if ((argc == 6 || argc == 5) && input_check(argc, argv))
 	{
-		philo = malloc(sizeof(t_philo) * ft_atoi(argv[1]));
-		if (!philo)
-			return (0);
-		data = malloc(sizeof(t_data));
-		if (!data)
-		{
-			free(philo);
-			return (0);
-		}
+		if (malloc_all(&philo, &data, argv))
+			return (1);
 		init_data(data, argv, philo);
-		philo->data = data;
-		create_threads(data, philo);
+		if (case_one(philo))
+			return (0);
+		if (create_threads(data, philo))
+			return (1);
 		clear_data(philo);
-		free(philo);
 		return (0);
 	}
 	else
 		printf("Error: Wrong number of arguments\n");
-	return (1);
+	return (0);
 }

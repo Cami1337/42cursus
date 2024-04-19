@@ -6,7 +6,7 @@
 /*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:57:52 by lglauch           #+#    #+#             */
-/*   Updated: 2024/04/18 12:40:31 by leo              ###   ########.fr       */
+/*   Updated: 2024/04/19 14:11:00 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int		ft_atoi(const char *str);
 long	get_time(void);
 void	print_action(t_philo *philo, char *action);
 int		is_int(const char *str);
-void	create_threads(t_data *data, t_philo *philo);
+int		create_threads(t_data *data, t_philo *philo);
 void	*routine(void *arg);
 void	*check_status(void *arg);
 int		precise_sleep(int milliseconds);
@@ -67,6 +67,7 @@ void	take_right_fork(t_philo *philo);
 void	is_eating(t_philo *philo);
 void	pick_up_forks(t_philo *philo);
 void	clear_data(t_philo *philo);
-void	kill_philo(t_philo *philo);
+int		kill_philo(t_philo *philo);
+int		malloc_all(t_philo **philo, t_data **data, char **argv);
 
 #endif

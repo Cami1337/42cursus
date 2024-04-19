@@ -6,7 +6,7 @@
 /*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 12:30:20 by lglauch           #+#    #+#             */
-/*   Updated: 2024/04/18 21:22:07 by leo              ###   ########.fr       */
+/*   Updated: 2024/04/19 14:13:55 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,14 @@ void	clear_data(t_philo *philo)
 		free(philo->data->forks);
 	if (philo->data)
 		free(philo->data);
+	// if (philo)
+	// 	free(philo);
 }
 
-void	kill_philo(t_philo *philo)
+int	kill_philo(t_philo *philo)
 {
 	philo->data->run = false;
 	precise_sleep(4);
 	print_action(philo, "died");
-	clear_data(philo);
-	exit (0);
+	return (1);
 }
