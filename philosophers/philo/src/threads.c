@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkauker <jkauker@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:07:22 by leo               #+#    #+#             */
-/*   Updated: 2024/04/24 13:07:03 by jkauker          ###   ########.fr       */
+/*   Updated: 2024/04/24 18:41:14 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,15 @@ void	*check_status(void *arg)
 		finished_eating(philo);
 		while (i < philo->data->nb_philo)
 		{
+			pthread_mutex_lock(&philo->data->eat_count);
 			if (philo[i].started_eating && philo[i].data->time_to_die
-				<= get_time() - philo[i].time_last_meal)
-				if (kill_philo(&philo[i]))
-					return (NULL);
+				< get_time() - philo[i].time_last_meal)
+			{
+				kill_philo(&philo[i]);
+				pthread_mutex_unlock(&philo->data->eat_count);
+				return (NULL);
+			}
+			pthread_mutex_unlock(&philo->data->eat_count);
 			i++;
 		}
 	}

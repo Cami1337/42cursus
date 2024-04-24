@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkauker <jkauker@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:33:07 by leo               #+#    #+#             */
-/*   Updated: 2024/04/22 11:01:34 by jkauker          ###   ########.fr       */
+/*   Updated: 2024/04/24 18:41:14 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,14 @@ void	is_eating(t_philo *philo)
 {
 	print_action(philo, "is eating");
 	precise_sleep(philo->data->time_to_eat);
-	pthread_mutex_unlock
-		(&philo->data->forks[(philo->id) % philo->data->nb_philo]);
-	pthread_mutex_unlock(&philo->data->forks[philo->id - 1]);
-	pthread_mutex_lock(&philo->data->last_meal);
-	philo->time_last_meal = get_time();
-	pthread_mutex_unlock(&philo->data->last_meal);
 	pthread_mutex_lock(&philo->data->eat_count);
+	philo->time_last_meal = get_time();
 	philo->started_eating = true;
 	philo->eat++;
 	pthread_mutex_unlock(&philo->data->eat_count);
+	pthread_mutex_unlock
+		(&philo->data->forks[(philo->id) % philo->data->nb_philo]);
+	pthread_mutex_unlock(&philo->data->forks[philo->id - 1]);
 }
 
 void	pick_up_forks(t_philo *philo)
