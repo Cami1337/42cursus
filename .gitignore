@@ -5,3 +5,6 @@
 *.dSYM
 .DS_Store
 .vscode/
+.json
+fractol
+MLX42

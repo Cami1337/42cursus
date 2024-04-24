@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 14:17:26 by lglauch           #+#    #+#             */
-/*   Updated: 2024/03/18 14:37:22 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/03/27 14:28:16 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # define WIDTH 1080
 # define HEIGHT 1080
-# define MAX_ITER 1000
+# define MAX_ITER 30
 
 # include "MLX42/include/MLX42/MLX42.h"
 # include "libft/libft.h"
