@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clear.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jkauker <jkauker@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 12:30:20 by lglauch           #+#    #+#             */
-/*   Updated: 2024/04/19 14:13:55 by leo              ###   ########.fr       */
+/*   Updated: 2024/04/24 12:55:30 by jkauker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,45 @@ void	clear_data(t_philo *philo)
 	pthread_mutex_destroy(&philo->data->last_meal);
 	pthread_mutex_destroy(&philo->data->eat_count);
 	pthread_mutex_destroy(&philo->data->checker_mutex);
-	if (philo->data->forks)
-		free(philo->data->forks);
-	if (philo->data)
-		free(philo->data);
-	// if (philo)
-	// 	free(philo);
 }
 
 int	kill_philo(t_philo *philo)
 {
-	philo->data->run = false;
+	run_false(philo);
 	precise_sleep(4);
 	print_action(philo, "died");
 	return (1);
+}
+
+void	ft_free_all(t_philo *philo, t_data *data)
+{
+	if (data->forks)
+	{
+		free(data->forks);
+	}
+	if (data)
+	{
+		free(data);
+	}
+	if (philo)
+	{
+		free(philo);
+	}
+}
+
+void	run_false(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->data->run_mutex);
+	philo->data->run = false;
+	pthread_mutex_unlock(&philo->data->run_mutex);
+}
+
+int	check_run(t_philo *philo)
+{
+	int	run;
+
+	pthread_mutex_lock(&philo->data->run_mutex);
+	run = philo->data->run;
+	pthread_mutex_unlock(&philo->data->run_mutex);
+	return (run);
 }

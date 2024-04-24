@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jkauker <jkauker@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:57:52 by lglauch           #+#    #+#             */
-/*   Updated: 2024/04/19 14:11:00 by leo              ###   ########.fr       */
+/*   Updated: 2024/04/24 12:57:01 by jkauker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_data
 	pthread_mutex_t	checker_mutex;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
+	pthread_mutex_t	run_mutex;
 	pthread_t		monitoring;	
 }					t_data;
 
@@ -50,7 +51,7 @@ typedef struct s_philo
 	long			time_last_meal;
 	bool			started_eating;
 	t_data			*data;
-    pthread_t		thread;
+	pthread_t		thread;
 }					t_philo;
 
 int		ft_atoi(const char *str);
@@ -68,6 +69,9 @@ void	is_eating(t_philo *philo);
 void	pick_up_forks(t_philo *philo);
 void	clear_data(t_philo *philo);
 int		kill_philo(t_philo *philo);
+void	ft_free_all(t_philo *philo, t_data *data);
 int		malloc_all(t_philo **philo, t_data **data, char **argv);
+int		check_run(t_philo *philo);
+void	run_false(t_philo *philo);
 
 #endif

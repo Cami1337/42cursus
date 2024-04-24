@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jkauker <jkauker@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:06:26 by lglauch           #+#    #+#             */
-/*   Updated: 2024/04/19 14:09:15 by leo              ###   ########.fr       */
+/*   Updated: 2024/04/24 12:57:21 by jkauker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	init_data(t_data *data, char **argv, t_philo *philo)
 	pthread_mutex_init(&data->last_meal, NULL);
 	pthread_mutex_init(&data->eat_count, NULL);
 	pthread_mutex_init(&data->checker_mutex, NULL);
+	pthread_mutex_init(&data->run_mutex, NULL);
 	data->start = get_time();
 	data->run = true;
 	philo->data = data;
@@ -62,15 +63,15 @@ int	input_check(int argc, char **argv)
 int	malloc_all(t_philo **philo, t_data **data, char **argv)
 {
 	*philo = malloc(sizeof(t_philo) * ft_atoi(argv[1]));
-		if (!*philo)
-			return (1);
-		*data = malloc(sizeof(t_data));
-		if (!*data)
-		{
-			free(*philo);
-			return (1);
-		}
-		(*data)->forks = malloc(sizeof(pthread_mutex_t) * ft_atoi(argv[1]));
+	if (!*philo)
+		return (1);
+	*data = malloc(sizeof(t_data));
+	if (!*data)
+	{
+		free(*philo);
+		return (1);
+	}
+	(*data)->forks = malloc(sizeof(pthread_mutex_t) * ft_atoi(argv[1]));
 	if (!(*data)->forks)
 	{
 		free(*data);
@@ -84,10 +85,10 @@ int	case_one(t_philo *philo)
 {
 	if (philo->data->nb_philo == 1)
 	{
-		printf("%d %d %s\n", philo->data->time_to_die,
-		philo->id + 1, "died");
+		printf("%d %d %s\n", philo->data->time_to_die, 
+		1 , "died");
 		precise_sleep(4);
-		clear_data(philo);
+		ft_free_all(philo, philo->data);
 		return (1);
 	}
 	return (0);
@@ -105,9 +106,9 @@ int	main(int argc, char **argv)
 		init_data(data, argv, philo);
 		if (case_one(philo))
 			return (0);
-		if (create_threads(data, philo))
-			return (1);
+		create_threads(data, philo);
 		clear_data(philo);
+		ft_free_all(philo, data);
 		return (0);
 	}
 	else

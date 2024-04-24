@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jkauker <jkauker@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 13:07:22 by leo               #+#    #+#             */
-/*   Updated: 2024/04/19 14:31:26 by leo              ###   ########.fr       */
+/*   Updated: 2024/04/24 13:07:03 by jkauker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@ void	*routine(void *arg)
 
 	philo = (t_philo *)arg;
 	arg = NULL;
-	while (philo->data->run == true && philo->alive == true)
+	while (check_run(philo) == true)
 	{
-		pick_up_forks(philo);
-		if (philo->data->run == false)
+		if (check_run(philo) == false)
 			return (NULL);
+		pick_up_forks(philo);
 		is_eating(philo);
-		if (philo->data->run == false)
+		if (check_run(philo) == false)
 			return (NULL);
 		print_action(philo, "is sleeping");
 		precise_sleep(philo->data->time_to_sleep);
-		if (philo->data->run == false)
+		if (check_run(philo) == false)
 			return (NULL);
 		print_action(philo, "is thinking");
 	}
@@ -49,14 +49,12 @@ int	create_threads(t_data *data, t_philo *philo)
 		philo[i].sleep = 0;
 		philo[i].think = 0;
 		philo[i].started_eating = false;
-		if (pthread_create(&philo[i].thread, NULL, &routine, &philo[i]))
-			return (1);
+		pthread_create(&philo[i].thread, NULL, &routine, &philo[i]);
 		precise_sleep(1);
 		i++;
 	}
 	i = 0;
-	if (pthread_create(&data->monitoring, NULL, &check_status, philo))
-		return (1);
+	pthread_create(&data->monitoring, NULL, &check_status, philo);
 	while (i < data->nb_philo)
 		pthread_join(philo[i++].thread, NULL);
 	pthread_join(data->monitoring, NULL);
@@ -69,25 +67,19 @@ void	*check_status(void *arg)
 	int		i;
 
 	philo = (t_philo *)arg;
-	pthread_mutex_lock(&philo->data->checker_mutex);
-	while (philo->data->run == true)
+	while (check_run(philo) == true)
 	{
 		i = 0;
+		finished_eating(philo);
 		while (i < philo->data->nb_philo)
 		{
-			finished_eating(philo);
-			if (philo[i].eat == philo->data->nb_eat)
-				philo[i].alive = false;
 			if (philo[i].started_eating && philo[i].data->time_to_die
 				<= get_time() - philo[i].time_last_meal)
 				if (kill_philo(&philo[i]))
-					return ((void *)1);
+					return (NULL);
 			i++;
 		}
-		if (philo->data->run == false)
-			break ;
 	}
-	pthread_mutex_unlock(&philo->data->checker_mutex);
 	return (NULL);
 }
 
@@ -112,14 +104,17 @@ int	finished_eating(t_philo *philo)
 		return (0);
 	while (i < philo->data->nb_philo)
 	{
+		pthread_mutex_lock(&philo->data->eat_count);
 		if (philo[i].eat < philo->data->nb_eat)
+		{
+			pthread_mutex_unlock(&philo->data->eat_count);
 			return (0);
+		}
+		pthread_mutex_unlock(&philo->data->eat_count);
 		i++;
 	}
+	run_false(philo);
 	precise_sleep(4);
 	printf("finished eating\n");
-	clear_data(philo);
-	free(philo);
-	exit (0);
 	return (1);
 }

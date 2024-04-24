@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jkauker <jkauker@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:33:07 by leo               #+#    #+#             */
-/*   Updated: 2024/04/19 14:49:58 by leo              ###   ########.fr       */
+/*   Updated: 2024/04/22 11:01:34 by jkauker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,3 @@ void	pick_up_forks(t_philo *philo)
 		take_left_fork(philo);
 	}
 }
-
