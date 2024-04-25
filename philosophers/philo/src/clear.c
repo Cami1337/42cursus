@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 12:30:20 by lglauch           #+#    #+#             */
-/*   Updated: 2024/04/24 18:41:14 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/04/25 14:16:44 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	clear_data(t_philo *philo)
 int	kill_philo(t_philo *philo)
 {
 	run_false(philo);
-	precise_sleep(4);
 	print_action(philo, "died");
 	return (1);
 }
