@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 13:33:07 by leo               #+#    #+#             */
-/*   Updated: 2024/04/25 10:28:18 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/04/25 14:05:03 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,22 @@ void	pick_up_forks(t_philo *philo)
 		take_right_fork(philo);
 		take_left_fork(philo);
 	}
+}
+
+void	print_action_kill(t_philo *philo, char *action)
+{
+	if (philo->data == NULL || action == NULL)
+	{
+		printf("Error: Invalid argument\n");
+		return ;
+	}
+	if (philo->data->nb_philo <= 0)
+	{
+		printf("Error: Invalid philosopher number\n");
+		return ;
+	}
+	pthread_mutex_lock(&philo->data->print);
+	printf("%ld %d %s\n", ft_get_converted_time(philo->data->start)
+		, philo->id, action);
+	pthread_mutex_unlock(&philo->data->print);
 }

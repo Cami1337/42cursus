@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lglauch <lglauch@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:57:52 by lglauch           #+#    #+#             */
-/*   Updated: 2024/04/24 18:41:14 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/04/25 14:03:04 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,11 @@ void	is_eating(t_philo *philo);
 void	pick_up_forks(t_philo *philo);
 void	clear_data(t_philo *philo);
 int		kill_philo(t_philo *philo);
+void	print_action_kill(t_philo *philo, char *action);
 void	ft_free_all(t_philo *philo, t_data *data);
 int		malloc_all(t_philo **philo, t_data **data, char **argv);
 int		check_run(t_philo *philo);
 void	run_false(t_philo *philo);
+long	ft_get_converted_time(long start);
 
 #endif

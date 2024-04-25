@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clear.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lglauch <lglauch@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 12:30:20 by lglauch           #+#    #+#             */
-/*   Updated: 2024/04/25 14:16:44 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/04/25 13:59:12 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	clear_data(t_philo *philo)
 int	kill_philo(t_philo *philo)
 {
 	run_false(philo);
-	print_action(philo, "died");
+	print_action_kill(philo, "died");
 	return (1);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lglauch <lglauch@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 15:06:26 by lglauch           #+#    #+#             */
-/*   Updated: 2024/04/24 18:41:14 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/04/25 14:01:39 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ int	case_one(t_philo *philo)
 {
 	if (philo->data->nb_philo == 1)
 	{
-		printf("%d %d %s\n", philo->data->time_to_die, 
-		1 , "died");
+		printf("%d %d %s\n", philo->data->time_to_die,
+			1, "died");
 		precise_sleep(4);
 		ft_free_all(philo, philo->data);
 		return (1);
