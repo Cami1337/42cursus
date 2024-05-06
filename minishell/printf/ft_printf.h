@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: intra <intra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:38:18 by lglauch           #+#    #+#             */
-/*   Updated: 2023/11/15 12:06:40 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/05/06 13:59:24 by intra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdarg.h>
 # include <stdlib.h>
+# include <stdint.h>
 
 void	ft_putchar(char c, int *i);
 size_t	ft_strlen(const char *s);
