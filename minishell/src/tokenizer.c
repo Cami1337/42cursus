@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: intra <intra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:48:06 by lglauch           #+#    #+#             */
-/*   Updated: 2024/05/06 15:15:20 by intra            ###   ########.fr       */
+/*   Updated: 2024/05/07 13:46:08 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	**tokenizer(char *line)
 	int		i;
 	int		j;
 	int		x;
-	char	c;
+	// char	c;
 	int		word_number;
 
 	word_number = count_words(line);
@@ -52,26 +52,46 @@ char	**tokenizer(char *line)
 	x = 0;
 	while (line[++i] != 0)
 	{
-		if (line[i] == '"' || line[i] == '\'')
+		// if (line[i] == '"' || line[i] == '\'')
+		// {
+		// 	c = line[i];
+		// 	tokens[j] = malloc(sizeof(char));
+		// 	if (!tokens[j])
+		// 	{
+		// 		printf("problem with malloc in tokenizer");
+		// 		return(0);
+		// 	}
+		// 	while (line[i])
+		// 	{
+		// 		tokens[j][x++] = line[i];
+		// 		tokens[j] = realloc(tokens[j], (x + 2) * sizeof(char)); //write own realloc
+		// 		if (!tokens[j])
+		// 		{
+		// 			printf("problem with malloc in tokenizer");
+		// 			return(0);
+		// 		}
+		// 		if (line[i++] == c)
+		// 			break ;
+		// 	}
+		// 	tokens[j][x] = 0;
+		// }
+		if (line[i] != ' ')
 		{
-			c = line[i];
 			tokens[j] = malloc(sizeof(char));
-			while (line[i])
+			if (!tokens[j])
 			{
-				tokens[j][x++] = line[i];
-				tokens[j] = realloc(tokens[j], (x + 2) * sizeof(char)); //write own realloc
-				if (line[i++] == c)
-					break ;
+				printf("problem with malloc in tokenizer");
+				return(0);
 			}
-			tokens[j][x] = 0;
-		}
-		else if (line[i] != ' ')
-		{
-			tokens[j] = malloc(sizeof(char));
 			while (line[i] != ' ' && line[i] != 0)
 			{
 				tokens[j][x] = line[i++];
 				tokens[j] = realloc(tokens[j], (x + 2) * sizeof(char));
+				if (!tokens[j])
+				{
+					printf("problem with malloc in tokenizer");
+					return(0);
+				}
 				x++;
 			}
 			tokens[j][x] = 0;
@@ -82,3 +102,8 @@ char	**tokenizer(char *line)
 	tokens[j] = NULL;
 	return (tokens);
 }
+
+
+//error checking ->error messages
+
+//
