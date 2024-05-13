@@ -6,7 +6,7 @@
 #    By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/29 17:50:33 by lglauch           #+#    #+#              #
-#    Updated: 2024/05/06 13:48:28 by lglauch          ###   ########.fr        #
+#    Updated: 2024/05/13 15:10:41 by lglauch          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,3 +36,6 @@ fclean: clean
 	rm -rf $(NAME)
 
 re: clean all
+
+debug: CFLAGS += -g -O0
+debug: fclean $(NAME)

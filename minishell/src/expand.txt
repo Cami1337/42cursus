@@ -8,3 +8,9 @@ expand -> split args -> remove quotes
 
 'everthing inside gets taken' -> '$$' = $$     |    "'$$'" = 'pid'
 "variables get taken" -> "$$" = pid            |    '"$$"' = "$$"
+
+
+guide:
+
+
+https://github.com/maiadegraaf/minishell?tab=readme-ov-file#what-is-bash-and-how-does-it-work
