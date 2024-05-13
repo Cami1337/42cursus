@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: intra <intra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jkauker <jkauker@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:13:37 by lglauch           #+#    #+#             */
-/*   Updated: 2024/05/06 14:39:53 by intra            ###   ########.fr       */
+/*   Updated: 2024/05/09 08:07:53 by jkauker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,11 @@
 # include <dirent.h>
 # include <unistd.h>
 
-
 //signals
 int		*get_run(void);
-
 
 //tokens
 char	**tokenizer(char *line);
 int		count_words(char *line);
-
 
 #endif
