@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 17:51:26 by lglauch           #+#    #+#             */
-/*   Updated: 2024/05/07 13:37:34 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/05/14 13:38:50 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	main_loop(void)
 		line = readline("🐚  ");
 		if (!line)
 			break ;
+		if (line && ft_strlen(line) > 0)
+			add_history(line);
 		tokens = tokenizer(line);
 		if (!tokens)
 			printf("Error tokens returned NULL");
@@ -47,7 +49,7 @@ void	main_loop(void)
             printf("tokens[%d] = %s\n", i, tokens[i]); //delete later just a tester
             i++;
         }
-		if (strcmp(line, "exit") == 0)
+		if (ft_strncmp(line, "exit", 4) == 0 && line[4] == 0)
 			break ;
 	}
 	if (line)

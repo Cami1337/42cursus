@@ -6,7 +6,7 @@
 #    By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/29 17:50:33 by lglauch           #+#    #+#              #
-#    Updated: 2024/05/13 15:10:41 by lglauch          ###   ########.fr        #
+#    Updated: 2024/05/14 13:38:15 by lglauch          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,3 +39,6 @@ re: clean all
 
 debug: CFLAGS += -g -O0
 debug: fclean $(NAME)
+
+run: $(NAME) 
+	./minishell
