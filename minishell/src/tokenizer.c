@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jkauker <jkauker@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 13:48:06 by lglauch           #+#    #+#             */
-/*   Updated: 2024/05/15 13:27:20 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/05/15 19:16:44 by jkauker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,4 +148,4 @@ char	**tokenizer(char *line)
 }
 //error checking ->error messages
 
-//https://github.com/toni-schmitt/minishell#the-basic-functionalities-of-the-project
+//https://github.com/maiadegraaf/minishell
